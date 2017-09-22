@@ -222,4 +222,3 @@ AppPackages
 project.lock.json
 msbuild.binlog
 *.project.lock.json
-/build/tools
