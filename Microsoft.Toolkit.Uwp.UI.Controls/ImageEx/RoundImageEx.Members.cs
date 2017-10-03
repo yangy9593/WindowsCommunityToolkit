@@ -10,6 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
+using System;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 
@@ -26,6 +27,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(RoundImageEx), new PropertyMetadata(0));
 
+        [Obsolete("Use ImageEx directly instead in 16294 and above.", false)]
         public double CornerRadius
         {
             get { return (double)GetValue(CornerRadiusProperty); }
