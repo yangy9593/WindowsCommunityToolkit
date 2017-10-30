@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:data="using:Microsoft.Toolkit.Uwp.SampleApp.Models"
     mc:Ignorable="d">
 
@@ -35,7 +36,11 @@
                   ItemClick="ListView_ItemClick" 
                   IsItemClickEnabled="True"
                   animations:Connected.ListItemElementName="ItemThumbnail"
-                  animations:Connected.ListItemKey="listItem">
+                  animations:Connected.ListItemKey="listItem"
+                  animations:Composition.ListViewStaggerDelayDelta="20">
+            <animations:Composition.ListItemLoadedAnimation>
+                <animations:ScaleAnimation From="0, 1, 0" To="1" Duration="0:0:0.02"></animations:ScaleAnimation>
+            </animations:Composition.ListItemLoadedAnimation>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Item">
                     <StackPanel>
