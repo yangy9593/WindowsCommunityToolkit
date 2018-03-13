@@ -375,8 +375,10 @@
     <Content Include="SamplePages\HeaderedTextBlock\HeaderedTextBlockCode.bind" />
     <Content Include="SamplePages\ViewExtensions\ViewExtensions.png" />
     <Content Include="SamplePages\Visual Extensions\VisualExtensions.png" />
+    <Content Include="SamplePages\LottieAnimationView\LottieAnimationView.png" />
     <Content Include="SamplePages\WrapPanel\WrapPanel.png" />
     <Content Include="landingPageLinks.json" />
+    <Content Include="Assets\Gears.json" />
     <None Include="Microsoft.Toolkit.Uwp.SampleApp.ruleset" />
     <Content Include="SamplePages\WeatherLiveTileAndToast\WeatherLiveTileAndToast.png" />
     <Content Include="SamplePages\WeatherLiveTileAndToast\WeatherLiveTileAndToastCode.bind" />
@@ -497,6 +499,7 @@
     <Content Include="SamplePages\RadialGradientBrush\RadialGradientBrushXaml.bind">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="SamplePages\LottieAnimationView\LottieAnimationView.bind" />
     <Content Include="SamplePages\LayoutTransformControl\LayoutTransformControlXaml.bind" />
     <Content Include="SamplePages\GazeTracing\GazeTracingXaml.bind">
       <SubType>Designer</SubType>
@@ -542,6 +545,8 @@
     <Compile Include="SamplePages\UniformGrid\UniformGridPage.xaml.cs">
       <DependentUpon>UniformGridPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\PropertyDescriptor\RangeSelectorPropertyOptions.cs" />
+    <Compile Include="Models\PropertyDescriptor\StringPropertyOptions.cs" />
     <Compile Include="Models\PropertyDescriptor\ThicknessPropertyOptions.cs" />
     <Compile Include="SamplePages\AdvancedCollectionView\AdvancedCollectionViewPage.xaml.cs">
       <DependentUpon>AdvancedCollectionViewPage.xaml</DependentUpon>
@@ -607,6 +612,9 @@
     </Compile>
     <Compile Include="SamplePages\ListViewExtensions\ListViewExtensionsPage.xaml.cs">
       <DependentUpon>ListViewExtensionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SamplePages\LottieAnimationView\LottieAnimationViewPage.xaml.cs">
+      <DependentUpon>LottieAnimationViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SamplePages\MarkdownParser\MarkdownParserPage.xaml.cs">
       <DependentUpon>MarkdownParserPage.xaml</DependentUpon>
@@ -972,6 +980,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SamplePages\LottieAnimationView\LottieAnimationViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SamplePages\MarkdownParser\MarkdownParserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1297,6 +1309,10 @@
     <ProjectReference Include="..\Microsoft.Toolkit.Uwp.UI.Controls\Microsoft.Toolkit.Uwp.UI.Controls.csproj">
       <Project>{e9faabfb-d726-42c1-83c1-cb46a29fea81}</Project>
       <Name>Microsoft.Toolkit.Uwp.UI.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Toolkit.Uwp.UI.Controls.Lottie\Microsoft.Toolkit.Uwp.UI.Controls.Lottie.csproj">
+      <Project>{d42d49c9-6352-4792-9869-4bf41760b2f1}</Project>
+      <Name>Microsoft.Toolkit.Uwp.UI.Controls.Lottie</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microsoft.Toolkit\Microsoft.Toolkit.csproj">
       <Project>{6fe128a8-cefa-4a61-a987-ec92de6b538e}</Project>

@@ -293,6 +293,15 @@
         "XamlCodeFile": "LayoutTransformControlXaml.bind",
         "Icon": "/SamplePages/LayoutTransformControl/LayoutTransformControl.png",
         "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/controls/LayoutTransformControl.md"
+      },
+      {
+        "Name": "LottieAnimationView",
+        "Type": "LottieAnimationViewPage",
+        "About": "The LottieAnimationView Control renders Lottie animations (Adobe After Effects files exported as JSON files).",
+        "CodeUrl": "https://github.com/Microsoft/UWPCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls.Lottie",
+        "XamlCodeFile": "LottieAnimationView.bind",
+        "Icon": "/SamplePages/LottieAnimationView/LottieAnimationView.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/controls/LottieAnimationView.md"
       }
     ]
   },
