@@ -19,6 +19,7 @@ using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 using Microsoft.Toolkit.Uwp.SampleApp.Models;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.Toolkit.Uwp.UI.Controls.Lottie;
 using Microsoft.Toolkit.Uwp.UI.Controls.Graph;
 using Microsoft.Toolkit.Uwp.UI.Media;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
+using Path = System.IO.Path;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp
 {
@@ -511,6 +513,27 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
 
                                     break;
 
+                                case PropertyKind.RangeSelectorMin:
+                                case PropertyKind.RangeSelectorMax:
+                                    try
+                                    {
+                                        var rangeSelectorOptions = new RangeSelectorPropertyOptions { DefaultValue = double.Parse(value, CultureInfo.InvariantCulture) };
+
+                                        var parameters = match.Groups["parameters"].Value;
+                                        rangeSelectorOptions.MinOrMaxValue = double.Parse(parameters, CultureInfo.InvariantCulture);
+                                        rangeSelectorOptions.Id = match.Groups["options"].Value;
+
+                                        options = rangeSelectorOptions;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Debug.WriteLine($"Unable to extract range selector info from {value}({ex.Message})");
+                                        TrackingManager.TrackException(ex);
+                                        continue;
+                                    }
+
+                                    break;
+
                                 case PropertyKind.TimeSpan:
                                     try
                                     {
@@ -596,7 +619,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
                                     }
                                     catch (Exception ex)
                                     {
-                                        Debug.WriteLine($"Unable to extract slider info from {value}({ex.Message})");
+                                        Debug.WriteLine($"Unable to extract thickness info from {value}({ex.Message})");
                                         TrackingManager.TrackException(ex);
                                         continue;
                                     }
@@ -604,7 +627,28 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
                                     break;
 
                                 default:
-                                    options = new PropertyOptions { DefaultValue = value };
+                                    try
+                                    {
+                                        var stringOptions = new StringPropertyOptions { DefaultValue = value };
+                                        var parameters = match.Groups["parameters"]?.Value;
+                                        if (string.IsNullOrEmpty(parameters) == false)
+                                        {
+                                            var split = parameters.Split('-');
+                                            if (split.Length > 0)
+                                            {
+                                                stringOptions.UpdateSourceTrigger = (Windows.UI.Xaml.Data.UpdateSourceTrigger)Convert.ToInt32(split[0]);
+                                            }
+                                        }
+
+                                        options = stringOptions;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Debug.WriteLine($"Unable to extract string info from {value}({ex.Message})");
+                                        TrackingManager.TrackException(ex);
+                                        continue;
+                                    }
+
                                     break;
                             }
 
@@ -632,56 +676,30 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
                 return result;
             }
 
-            // Search in Windows
-            var proxyType = VerticalAlignment.Center;
-            var assembly = proxyType.GetType().GetTypeInfo().Assembly;
+            var assemblies = new[]
+            {
+                VerticalAlignment.Center.GetType().GetTypeInfo().Assembly, // Search in Windows
+                GridSplitter.GridResizeDirection.Auto.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Controls
+                RepeatMode.Restart.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Controls.Lottie
+                EasingType.Default.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Animations
+                ImageBlendMode.Multiply.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI
+                ViewType.EmailOnly.GetType().GetTypeInfo().Assembly // Search in Microsoft.Toolkit.Uwp.UI.Controls.Graph
+            };
 
             foreach (var typeInfo in assembly.ExportedTypes)
             {
-                if (typeInfo.Name == typeName)
+                var typeInfo = SearchTypeIn(assembly, typeName);
+                if (typeInfo != null)
                 {
                     return typeInfo;
                 }
             }
 
-            // Search in Microsoft.Toolkit.Uwp.UI.Controls
-            var controlsProxyType = GridSplitter.GridResizeDirection.Auto;
-            assembly = controlsProxyType.GetType().GetTypeInfo().Assembly;
+            return null;
+        }
 
-            foreach (var typeInfo in assembly.ExportedTypes)
-            {
-                if (typeInfo.Name == typeName)
-                {
-                    return typeInfo;
-                }
-            }
-
-            // Search in Microsoft.Toolkit.Uwp.UI.Controls.Graph
-            var graphControlsProxyType = ViewType.EmailOnly;
-            assembly = graphControlsProxyType.GetType().GetTypeInfo().Assembly;
-
-            foreach (var typeInfo in assembly.ExportedTypes)
-            {
-                if (typeInfo.Name == typeName)
-                {
-                    return typeInfo;
-                }
-            }
-
-            // Search in Microsoft.Toolkit.Uwp.UI.Animations
-            var animationsProxyType = EasingType.Default;
-            assembly = animationsProxyType.GetType().GetTypeInfo().Assembly;
-            foreach (var typeInfo in assembly.ExportedTypes)
-            {
-                if (typeInfo.Name == typeName)
-                {
-                    return typeInfo;
-                }
-            }
-
-            // Search in Microsoft.Toolkit.Uwp.UI
-            var uiProxyType = ImageBlendMode.Multiply;
-            assembly = uiProxyType.GetType().GetTypeInfo().Assembly;
+        private static Type SearchTypeIn(Assembly assembly, string typeName)
+        {
             foreach (var typeInfo in assembly.ExportedTypes)
             {
                 if (typeInfo.Name == typeName)

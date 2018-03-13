@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -19,3 +20,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("TargetPlatform", "UAP")]
 
 [assembly: ComVisible(false)]
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

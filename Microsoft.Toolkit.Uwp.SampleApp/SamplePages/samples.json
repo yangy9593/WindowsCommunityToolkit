@@ -316,6 +316,15 @@
         "ApiCheck": "Windows.UI.Xaml.Controls.ColorPicker",
         "BadgeUpdateVersionRequired": "Fall Creators Update required",
         "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/WindowsCommunityToolkit/master/docs/controls/InfiniteCanvas.md"
+      },
+      {
+        "Name": "LottieAnimationView",
+        "Type": "LottieAnimationViewPage",
+        "About": "The LottieAnimationView Control renders Lottie animations (Adobe After Effects files exported as JSON files).",
+        "CodeUrl": "https://github.com/Microsoft/WindowsCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls.Lottie",
+        "XamlCodeFile": "LottieAnimationView.bind",
+        "Icon": "/SamplePages/LottieAnimationView/LottieAnimationView.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/WindowsCommunityToolkit/master/docs/controls/LottieAnimationView.md"
       }
     ]
   },
