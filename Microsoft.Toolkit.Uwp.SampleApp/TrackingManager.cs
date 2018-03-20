@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp
 {
@@ -22,7 +23,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
-                AppCenter.AppCenter.Start(string.Empty, typeof(Analytics));
+                AppCenter.AppCenter.Start(string.Empty, new Type[] { typeof(Analytics), typeof(Crashes) });
             }
             catch
             {
