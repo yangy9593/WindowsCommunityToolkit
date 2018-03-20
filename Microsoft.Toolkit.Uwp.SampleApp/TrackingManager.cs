@@ -11,20 +11,15 @@
 // ******************************************************************
 
 using System;
-using GoogleAnalytics;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp
 {
     public static class TrackingManager
     {
-        private static readonly Tracker Tracker = AnalyticsManager.Current.CreateTracker(string.Empty);
-
         static TrackingManager()
         {
             try
             {
-                AnalyticsManager.Current.ReportUncaughtExceptions = true;
-                AnalyticsManager.Current.AutoAppLifetimeMonitoring = true;
             }
             catch
             {
@@ -36,7 +31,6 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
-                Tracker.Send(HitBuilder.CreateException("Exception: " + ex.Message + "->" + ex.StackTrace, false).Build());
             }
             catch
             {
@@ -48,7 +42,6 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
-                Tracker.Send(HitBuilder.CreateCustomEvent(category, action, label, value).Build());
             }
             catch
             {
@@ -60,8 +53,6 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
-                Tracker.ScreenName = pageName;
-                Tracker.Send(HitBuilder.CreateScreenView().Build());
             }
             catch
             {
