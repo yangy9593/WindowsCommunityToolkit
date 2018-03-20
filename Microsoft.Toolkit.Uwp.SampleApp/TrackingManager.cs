@@ -11,19 +11,21 @@
 // ******************************************************************
 
 using System;
+using System.Collections.Generic;
+using Microsoft.AppCenter.Analytics;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp
 {
     public static class TrackingManager
     {
-        static TrackingManager()
+        public static void Init()
         {
             try
             {
+                AppCenter.AppCenter.Start(string.Empty, typeof(Analytics));
             }
             catch
             {
-                // Ignoring error
             }
         }
 
@@ -31,6 +33,15 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
+                Dictionary<string, string> properties = new Dictionary<string, string>
+                {
+                    { "message", ex.Message },
+                    { "stackTrace", ex.StackTrace },
+                    { "innerExceptionMessage", ex.InnerException?.Message },
+                    { "innerExceptionStackTrace", ex.InnerException?.StackTrace },
+                    { "source", ex.Source }
+                };
+                Analytics.TrackEvent("exception", properties);
             }
             catch
             {
@@ -42,6 +53,13 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
+                Dictionary<string, string> properties = new Dictionary<string, string>
+                {
+                    { "action", action },
+                    { "label", label },
+                    { "value", value.ToString() }
+                };
+                Analytics.TrackEvent(category, properties);
             }
             catch
             {
@@ -53,6 +71,11 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             try
             {
+                Dictionary<string, string> properties = new Dictionary<string, string>
+                {
+                    { "pageName", pageName }
+                };
+                Analytics.TrackEvent("pageView", properties);
             }
             catch
             {
