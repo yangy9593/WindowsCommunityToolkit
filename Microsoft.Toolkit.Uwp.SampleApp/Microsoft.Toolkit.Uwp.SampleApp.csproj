@@ -562,7 +562,6 @@
       <DependentUpon>UniformGridPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\PropertyDescriptor\RangeSelectorPropertyOptions.cs" />
-    <Compile Include="Models\PropertyDescriptor\StringPropertyOptions.cs" />
     <Compile Include="Models\PropertyDescriptor\ThicknessPropertyOptions.cs" />
     <Compile Include="SamplePages\PeoplePicker\PeoplePickerPage.xaml.cs">
       <DependentUpon>PeoplePickerPage.xaml</DependentUpon>
