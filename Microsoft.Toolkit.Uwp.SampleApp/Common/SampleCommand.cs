@@ -13,7 +13,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.Common
     {
         public string Label { get; set; }
 
-        public SampleCommand(string name, Action<object> action)
+        public SampleCommand(string name, Action action)
             : base(action)
         {
             Label = name;
