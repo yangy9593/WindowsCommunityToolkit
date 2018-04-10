@@ -186,6 +186,9 @@
                                     <HyperlinkButton Style="{StaticResource AboutHyperlinkButtonStyle}" NavigateUri="https://unsplash.com/@8moments" Click="Link_Clicked">
                                         <TextBlock>Background photo by Simon Matzinger</TextBlock>
                                     </HyperlinkButton>
+                                    <HyperlinkButton Style="{StaticResource AboutHyperlinkButtonStyle}" NavigateUri="https://www.lottiefiles.com/47-gears" Click="Link_Clicked">
+                                        <TextBlock>Gears example / LottieFiles</TextBlock>
+                                    </HyperlinkButton>
                                 </ItemsControl>
                             </StackPanel>
                         </ItemsControl>
