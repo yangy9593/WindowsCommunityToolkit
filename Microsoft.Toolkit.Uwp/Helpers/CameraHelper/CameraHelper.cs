@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Devices.Enumeration;
 using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Media.Capture;
@@ -69,10 +70,13 @@ namespace Microsoft.Toolkit.Uwp.Helpers.CameraHelper
 
             if (_frameSourceGroups == null)
             {
+                var videoDevices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
                 var groups = await MediaFrameSourceGroup.FindAllAsync();
+
+                // Filter out color video preview and video record type sources and remove duplicates video devices.
                 _frameSourceGroups = groups.Where(g => g.SourceInfos.Any(s => s.SourceKind == MediaFrameSourceKind.Color &&
-                                                                            (s.MediaStreamType == MediaStreamType.VideoPreview
-                                                                            || s.MediaStreamType == MediaStreamType.VideoRecord))).ToList();
+                                                                            (s.MediaStreamType == MediaStreamType.VideoPreview || s.MediaStreamType == MediaStreamType.VideoRecord))
+                                                                            && g.SourceInfos.All(sourceInfo => videoDevices.Any(vd => vd.Id == sourceInfo.DeviceInformation.Id))).ToList();
             }
 
             if (_group == null)
@@ -183,28 +187,13 @@ namespace Microsoft.Toolkit.Uwp.Helpers.CameraHelper
             // This can return null if there is no such frame, or if the reader is not in the
             // "Started" state. The latter can occur if a FrameArrived event was in flight
             // when the reader was stopped.
-            using (var frame = sender.TryAcquireLatestFrame())
+            var frame = sender.TryAcquireLatestFrame();
+            if (frame != null)
             {
-                if (frame == null)
-                {
-                    return;
-                }
-
                 var vmf = frame.VideoMediaFrame;
-
-                // Create a copy of software bitmap and dispose the Software Bitmap acquired from VideoFrameReference.
-                // If you access the SoftwareBitmap or Direct3DSurface objects provided by the VideoMediaFrame property of a MediaFrameReference, 
-                // the system creates a strong reference to these objects, which means that they will not be disposed when you call Dispose on the containing MediaFrameReference.
-                // You must explicitly call the Dispose method of the SoftwareBitmap or Direct3DSurface directly for the objects to be immediately disposed.
-                // See https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/process-media-frames-with-mediaframereader
-                var softwareBitmap = SoftwareBitmap.Copy(vmf.SoftwareBitmap);
-
                 EventHandler<FrameEventArgs> handler = FrameArrived;
-                var frameArgs = new FrameEventArgs() { VideoFrame = vmf.GetVideoFrame(), SoftwareBitmap = softwareBitmap };
+                var frameArgs = new FrameEventArgs() { VideoFrame = vmf.GetVideoFrame() };
                 handler?.Invoke(sender, frameArgs);
-
-                vmf.SoftwareBitmap.Dispose();
-                frame.Dispose();
             }
         }
 

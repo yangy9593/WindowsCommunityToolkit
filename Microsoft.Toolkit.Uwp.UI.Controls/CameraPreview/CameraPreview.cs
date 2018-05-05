@@ -30,8 +30,10 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         private CameraHelper _cameraHelper;
         private MediaPlayer _mediaPlayer;
         private MediaPlayerElement _mediaPlayerElementControl;
-        private Button _toggleFrameSourceGroup;
+        private Button _frameSourceGroupButton;
         private int _selectedSourceIndex = 0;
+
+        private bool IsFrameSourceGroupButtonAvailable => FrameSourceGroups != null && FrameSourceGroups.Count > 1;
 
         /// <summary>
         /// Gets Frame Source Groups available for Camera Media Capture.
@@ -50,18 +52,18 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         {
             base.OnApplyTemplate();
 
-            if (_toggleFrameSourceGroup != null)
+            if (_frameSourceGroupButton != null)
             {
-                _toggleFrameSourceGroup.Click -= ToggleFrameSourceGroup_ClickAsync;
+                _frameSourceGroupButton.Click -= FrameSourceGroupButton_ClickAsync;
             }
 
             _mediaPlayerElementControl = (MediaPlayerElement)GetTemplateChild("MediaPlayerElementControl");
-            _toggleFrameSourceGroup = (Button)GetTemplateChild("FrameSourceGroupButton");
+            _frameSourceGroupButton = (Button)GetTemplateChild("FrameSourceGroupButton");
 
-            if (_toggleFrameSourceGroup != null)
+            if (_frameSourceGroupButton != null)
             {
-                _toggleFrameSourceGroup.Click += ToggleFrameSourceGroup_ClickAsync;
-                _toggleFrameSourceGroup.Visibility = Visibility.Collapsed;
+                _frameSourceGroupButton.Click += FrameSourceGroupButton_ClickAsync;
+                _frameSourceGroupButton.IsEnabled = false;
             }
 
             await InitializeAsync();
@@ -86,6 +88,21 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
                 SetUIControls(result);
             }
+        }
+
+        private async void FrameSourceGroupButton_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            _selectedSourceIndex = _selectedSourceIndex < (FrameSourceGroups.Count - 1) ? _selectedSourceIndex + 1 : 0;
+            var group = FrameSourceGroups[_selectedSourceIndex];
+            _frameSourceGroupButton.IsEnabled = false;
+            var result = await _cameraHelper.InitializeAndStartCaptureAsync(group);
+            SetUIControls(result);
+        }
+
+        private void CameraHelper_FrameArrived(object sender, FrameEventArgs e)
+        {
+            EventHandler<FrameEventArgs> handler = FrameArrived;
+            handler?.Invoke(sender, e);
         }
 
         private void InvokePreviewFailed(string error)
@@ -120,21 +137,6 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
         }
 
-        private void CameraHelper_FrameArrived(object sender, FrameEventArgs e)
-        {
-            EventHandler<FrameEventArgs> handler = FrameArrived;
-            handler?.Invoke(sender, e);
-        }
-
-        private async void ToggleFrameSourceGroup_ClickAsync(object sender, RoutedEventArgs e)
-        {
-            _selectedSourceIndex = _selectedSourceIndex < (FrameSourceGroups.Count - 1) ? _selectedSourceIndex + 1 : 0;
-            var group = FrameSourceGroups[_selectedSourceIndex];
-            _toggleFrameSourceGroup.Visibility = Visibility.Collapsed;
-            var result = await _cameraHelper.InitializeAndStartCaptureAsync(group);
-            SetUIControls(result);
-        }
-
         private void SetUIControls(CameraHelperResult result)
         {
             var success = result == CameraHelperResult.Success;
@@ -147,10 +149,15 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                 _mediaPlayerElementControl.SetMediaPlayer(null);
             }
 
-            _toggleFrameSourceGroup.Visibility = ((FrameSourceGroupButtonVisibility == Visibility.Visible) &&
-                                                    FrameSourceGroups.Count > 1 && success)
-                                                    ? Visibility.Visible
-                                                    : Visibility.Collapsed;
+            _frameSourceGroupButton.IsEnabled = IsFrameSourceGroupButtonAvailable;
+            SetFrameSourceGroupButtonVisibility();
+        }
+
+        private void SetFrameSourceGroupButtonVisibility()
+        {
+            _frameSourceGroupButton.Visibility = IsFrameSourceGroupButtonAvailable && IsFrameSourceGroupButtonVisible
+                                                                ? Visibility.Visible
+                                                                : Visibility.Collapsed;
         }
 
         /// <summary>
