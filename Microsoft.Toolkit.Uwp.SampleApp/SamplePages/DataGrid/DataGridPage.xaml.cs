@@ -43,7 +43,10 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             dataGrid.LoadingRowGroup += DataGrid_LoadingRowGroup;
 
             groupButton = control.FindDescendantByName("groupButton") as AppBarButton;
-            groupButton.Click += GroupButton_Click;
+            if (groupButton != null)
+            {
+                groupButton.Click += GroupButton_Click;
+            }
 
             rankLowItem = control.FindName("rankLow") as MenuFlyoutItem;
             rankLowItem.Click += RankLowItem_Click;
