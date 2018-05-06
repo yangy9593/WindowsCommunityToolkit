@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls.Graph"
+                    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                    xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+
+    <Style TargetType="controls:PeoplePicker">
+        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:PeoplePicker">
+                    <StackPanel>
+                        <StackPanel>
+                            <Grid>
+                                <TextBox Name="tbGraphAccessToken"
+                                         Margin="0"
+                                         DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <TextBox Name="SearchBox"
+                                         Margin="0"
+                                         AutomationProperties.Name="Keywords"
+                                         PlaceholderText="{Binding PersonNotSelectedMessage, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <ProgressRing Name="Loading"
+                                              Margin="0,0,30,0"
+                                              HorizontalAlignment="Right"
+                                              AutomationProperties.Name="Progress"
+                                              Canvas.ZIndex="10"
+                                              FlowDirection="LeftToRight"
+                                              IsActive="False" />
+                            </Grid>
+                        </StackPanel>
+                        <RelativePanel>
+                            <ListBox Name="SearchResultListBox"
+                                     AutomationProperties.Name="Search Results"
+                                     Canvas.ZIndex="100"
+                                     ItemsSource="{Binding SearchResultList, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                     Visibility="Collapsed">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding UserPrincipalName}" />-->
+                                        <controls:ProfileCard AutomationProperties.Name="{Binding DisplayName}"
+                                                              DisplayMode="LargeProfilePhotoLeft"
+                                                              GraphAccessToken="{Binding DataContext.GraphAccessToken, ElementName=tbGraphAccessToken}"
+                                                              UserId="{Binding Id}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel>
+                                <ListBox Name="SelectionsListBox"
+                                         AutomationProperties.Name="Selections"
+                                         ItemsSource="{Binding Selections, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid AutomationProperties.Name="{Binding DisplayName}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <!--<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding UserPrincipalName}" />-->
+                                                <controls:ProfileCard Grid.Row="0"
+                                                                      Grid.Column="0"
+                                                                      DisplayMode="LargeProfilePhotoLeft"
+                                                                      GraphAccessToken="{Binding DataContext.GraphAccessToken, ElementName=tbGraphAccessToken}"
+                                                                      UserId="{Binding Id}" />
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="1" />
+                                                <Button Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Width="48"
+                                                        Height="48"
+                                                        Margin="0"
+                                                        HorizontalAlignment="Right"
+                                                        AutomationProperties.Name="Remove from selection"
+                                                        Background="Transparent"
+                                                        Command="{Binding DataContext.DeleteItemCommand, ElementName=tbGraphAccessToken}"
+                                                        CommandParameter="{Binding Id}"
+                                                        FlowDirection="LeftToRight"
+                                                        Tag="{Binding UserPrincipalName}">
+                                                    <SymbolIcon Symbol="Cancel" />
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </StackPanel>
+                        </RelativePanel>
+                        <TextBlock Name="SelectionsCounter"
+                                   AutomationProperties.Name="Selections Counter"
+                                   Visibility="Visible" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

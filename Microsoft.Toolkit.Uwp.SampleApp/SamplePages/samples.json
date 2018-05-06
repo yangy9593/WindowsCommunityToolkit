@@ -874,6 +874,7 @@
     ]
   },
   {
+<<<<<<< HEAD
     "Name": "Gaze",
     "Icon": "Icons/DeveloperTools.png",
     "Samples": [     
@@ -896,6 +897,48 @@
         "CodeFile": "GazeTracingCode.bind",
         "Icon": "/SamplePages/GazeTracing/GazeTracing.png",
         "ApiCheck": "Windows.Devices.Input.Preview.GazeInputSourcePreview"
+=======
+    "Name": "Graph",
+    "Icon": "Icons/Foundation.png",
+    "Samples": [
+      {
+        "Name": "AADLogin",
+        "Type": "AADLoginPage",
+        "About": "The AADLogin Control leverages existing .NET login libraries to support basic AAD sign-in processes for Microsoft Graph.",
+        "CodeUrl": "https://github.com/Microsoft/UWPCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls/Graph/AADLogin",
+        "CodeFile": "AADLoginCode.bind",
+        "XamlCodeFile": "AADLoginXaml.bind",
+        "Icon": "/SamplePages/AADLogin/AADLogin.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/graph/AADLogin.md"
+      },
+      {
+        "Name": "ProfileCard",
+        "Type": "ProfileCardPage",
+        "About": "The ProfileCard Control is a simple way to display a user in multiple different formats and mixes of name/image/e-mail.",
+        "CodeUrl": "https://github.com/Microsoft/UWPCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls/Graph/ProfileCard",
+        "XamlCodeFile": "ProfileCardXaml.bind",
+        "Icon": "/SamplePages/ProfileCard/ProfileCard.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/graph/ProfileCard.md"
+      },
+      {
+        "Name": "PeoplePicker",
+        "Type": "PeoplePickerPage",
+        "About": "The PeoplePicker Control is a simple control that allows for selection of one or more users from an organizational AD.",
+        "CodeUrl": "https://github.com/Microsoft/UWPCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls/Graph/PeoplePicker",
+        "XamlCodeFile": "PeoplePickerXaml.bind",
+        "Icon": "/SamplePages/PeoplePicker/PeoplePicker.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/graph/PeoplePicker.md"
+      },
+      {
+        "Name": "SharePointFiles",
+        "Type": "SharePointFilesPage",
+        "About": "The SharePointFiles Control displays a simple list of SharePoint Files.",
+        "CodeUrl": "https://github.com/Microsoft/UWPCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Controls/Graph/SharePointFiles",
+        "CodeFile": "SharePointFilesCode.bind",
+        "XamlCodeFile": "SharePointFilesXaml.bind",
+        "Icon": "/SamplePages/SharePointFiles/SharePointFiles.png",
+        "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/graph/SharePointFiles.md"
+>>>>>>> OGcanviz-master
       }
     ]
   }
