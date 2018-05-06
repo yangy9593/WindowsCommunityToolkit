@@ -46,5 +46,6 @@
     <DeviceCapability Name="location" />
     <DeviceCapability Name="bluetooth" />
     <DeviceCapability Name="gazeInput" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>
