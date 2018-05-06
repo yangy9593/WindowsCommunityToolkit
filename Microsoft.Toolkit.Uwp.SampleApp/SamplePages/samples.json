@@ -874,10 +874,9 @@
     ]
   },
   {
-<<<<<<< HEAD
     "Name": "Gaze",
     "Icon": "Icons/DeveloperTools.png",
-    "Samples": [     
+    "Samples": [
       {
         "Name": "GazeInteraction",
         "Type": "GazeInteractionPage",
@@ -897,7 +896,10 @@
         "CodeFile": "GazeTracingCode.bind",
         "Icon": "/SamplePages/GazeTracing/GazeTracing.png",
         "ApiCheck": "Windows.Devices.Input.Preview.GazeInputSourcePreview"
-=======
+      }
+    ]
+  },
+  {
     "Name": "Graph",
     "Icon": "Icons/Foundation.png",
     "Samples": [
@@ -938,7 +940,6 @@
         "XamlCodeFile": "SharePointFilesXaml.bind",
         "Icon": "/SamplePages/SharePointFiles/SharePointFiles.png",
         "DocumentationUrl": "https://raw.githubusercontent.com/Microsoft/UWPCommunityToolkit/master/docs/graph/SharePointFiles.md"
->>>>>>> OGcanviz-master
       }
     ]
   }

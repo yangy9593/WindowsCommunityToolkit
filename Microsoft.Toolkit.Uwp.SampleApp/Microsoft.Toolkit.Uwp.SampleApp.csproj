@@ -594,13 +594,11 @@
     <Compile Include="SamplePages\BackdropBlurBrush\BackdropBlurBrushPage.xaml.cs">
       <DependentUpon>BackdropBlurBrushPage.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="SamplePages\DataGrid\DataGridPage.xaml.cs">
       <DependentUpon>DataGridPage.xaml</DependentUpon>
-=======
+    </Compile>
     <Compile Include="SamplePages\AADLogin\AADLoginPage.xaml.cs">
       <DependentUpon>AADLoginPage.xaml</DependentUpon>
->>>>>>> OGcanviz-master
     </Compile>
     <Compile Include="SamplePages\FrameworkElementExtensions\FrameworkElementExtensionsPage.xaml.cs" />
     <Compile Include="SamplePages\GazeInteraction\GazeInteractionPage.xaml.cs">
