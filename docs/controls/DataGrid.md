@@ -7,7 +7,14 @@ keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, DataGrid, xaml co
 
 # DataGrid XAML control
 
+<<<<<<< HEAD
 The DataGrid control you know and love from Silverlight and WPF is now available for Windows10.
+=======
+> [!NOTE] 
+This control is in preview and can be found as a prerelease package. The control could change between now and the final release
+
+The DataGrid control you know and love from Silverlight and WPF is now available for Windows10. This control presents data in a customizable table of rows and columns.
+>>>>>>> rel/3.0.0-preview
 
 ![DataGrid control](../resources/images/Controls/DataGrid/DataGrid.gif)
 
@@ -123,4 +130,5 @@ e.Column.SortDirection = DataGridSortDirection.Ascending;
 ## API
 
 * [DataGrid source code](https://github.com/Microsoft/UWPCommunityToolkit/tree/harinikmsft/datagrid/Microsoft.Toolkit.Uwp.UI.Controls.DataGrid/DataGrid)
+* [Silverlight DataGrid API](https://docs.microsoft.com/en-us/previous-versions/windows/silverlight/dotnet-windows-silverlight/cc189753(v=vs.95))
 * [Silverlight DataGrid API](https://docs.microsoft.com/en-us/previous-versions/windows/silverlight/dotnet-windows-silverlight/cc189753(v=vs.95))
