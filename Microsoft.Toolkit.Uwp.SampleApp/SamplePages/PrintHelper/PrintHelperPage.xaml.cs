@@ -195,7 +195,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
                 printHelperOptions.AddDisplayOption(StandardPrintTaskOptions.Orientation);
             }
 
-            _printHelper.ShowPrintUIAsync("Windows Community Toolkit Sample App", printHelperOptions);
+            var t = _printHelper.ShowPrintUIAsync("Windows Community Toolkit Sample App", printHelperOptions);
         }
 
         private void ReleasePrintHelper()
