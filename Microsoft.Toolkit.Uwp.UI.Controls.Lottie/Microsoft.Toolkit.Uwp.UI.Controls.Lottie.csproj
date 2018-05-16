@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>uap10.0</TargetFramework>
@@ -8,13 +8,36 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.2" />
-	<PackageReference Include="Win2D.uwp" Version="1.21.0" />
-	<PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <Compile Remove="LottieComposition\LottieData\Path.cs" />
+    <Compile Remove="LottieComposition\Lottie\AnimatedComposition.cs" />
+    <Compile Remove="LottieComposition\Lottie\CompositionLoadResult.cs" />
+    <Compile Remove="LottieComposition\Lottie\CompositionObjectFactory.cs" />
+    <Compile Remove="LottieComposition\Lottie\CompositionPlayerSource.cs" />
+    <Compile Remove="LottieComposition\Lottie\ICompositionSink.cs" />
+    <Compile Remove="LottieComposition\Lottie\Intantiator.cs" />
+    <Compile Remove="LottieComposition\Lottie\LottieComposition.cs" />
+    <Compile Remove="LottieComposition\Lottie\LottieToVisualTranslator.cs" />
+    <Compile Remove="LottieComposition\Lottie\VisualInstantiator.cs" />
+    <Compile Remove="LottieComposition\Lottie\VisualPlayer.cs" />
+    <Compile Remove="LottieComposition\WinCompData\CodeGen\CompositionObjectFactoryGenerator.cs" />
+    <Compile Remove="LottieComposition\WinCompData\ConcreteClassType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.2" />
+	  <PackageReference Include="Win2D.uwp" Version="1.22.0" />
+	  <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="LottieComposition\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="VisualStudioToolsManifest.xml" Pack="true" PackagePath="tools" />
+    <None Include="$(OutDir)\Design\$(MSBuildProjectName).Design.dll" Pack="true" PackagePath="lib\$(TargetFramework)\Design" />
   </ItemGroup>
   
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-
   <!-- https://weblogs.asp.net/rweigelt/disable-warnings-in-generated-c-files-of-uwp-app -->
   <Target Name="PragmaWarningDisablePrefixer" AfterTargets="MarkupCompilePass2">
     <ItemGroup>
