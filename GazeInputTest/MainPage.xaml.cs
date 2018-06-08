@@ -52,28 +52,10 @@ namespace GazeInputTest
 
         int clickCount;
 
-        private async void OnLegacyInvoked(object sender, RoutedEventArgs e)
+        private void OnLegacyInvoked(object sender, RoutedEventArgs e)
         {
             clickCount++;
             HowButton.Content = string.Format("{0}: Legacy click", clickCount);
-
-            var newView = CoreApplication.CreateNewView();
-            var newViewId = 0;
-
-            await newView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-            {
-                var frame = new Frame();
-                frame.Navigate(typeof(MainPage), newViewId);
-                Window.Current.Content = frame;
-
-                // In Windows 10 UWP we need to activate our view first.
-                // Let's do it now so that we can use TryShow...() and SwitchAsync().
-                Window.Current.Activate();
-
-                newViewId = ApplicationView.GetForCurrentView().Id;
-            });
-
-            bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
 
         private void OnGazeInvoked(object sender, DwellInvokedRoutedEventArgs e)
