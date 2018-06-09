@@ -6,8 +6,8 @@ using System;
 using Microsoft.Toolkit.Uwp.Services.Facebook;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 {
@@ -44,7 +44,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             {
                 ShareBox.Visibility = Visibility.Collapsed;
                 Shell.Current.DisplayWaitRing = false;
-                var error = new MessageDialog("Unable to log to Facebook");
+                var error = new ContentDialog { Content = "Unable to log to Facebook", CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
@@ -99,7 +99,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             }
 
             await FacebookService.Instance.PostToFeedWithDialogAsync(UrlText.Text);
-            var message = new MessageDialog("Post sent to facebook");
+            var message = new ContentDialog { Content = "Post sent to facebook", CloseButtonText = "Close" };
             await message.ShowAsync();
         }
 

@@ -6,7 +6,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 using Microsoft.Toolkit.Services.MicrosoftGraph;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -62,20 +61,20 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 
         private Task DisplayMessageAsync(string message)
         {
-            MessageDialog msg = new MessageDialog(message);
+            var msg = new ContentDialog { Content = message, CloseButtonText = "Close" };
             return msg.ShowAsync().AsTask();
         }
 
         private Task DisplayAuthorizationErrorMessageAsync(ServiceException ex, string additionalMessage)
         {
-            MessageDialog error = null;
+            ContentDialog error = null;
             if (ex.Error.Code.Equals("ErrorAccessDenied"))
             {
-                error = new MessageDialog($"{ex.Error.Code}\nCheck in Azure Active Directory portal the '{additionalMessage}' Delegated Permissions");
+                error = new ContentDialog { Content = $"{ex.Error.Code}\nCheck in Azure Active Directory portal the '{additionalMessage}' Delegated Permissions", CloseButtonText = "Close" };
             }
             else
             {
-                error = new MessageDialog(ex.Error.Message);
+                error = new ContentDialog { Content = ex.Error.Message, CloseButtonText = "Close" };
             }
 
             return error.ShowAsync().AsTask();

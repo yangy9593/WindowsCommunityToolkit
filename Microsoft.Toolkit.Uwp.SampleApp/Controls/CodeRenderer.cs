@@ -6,7 +6,6 @@ using System;
 using ColorCode;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -133,14 +132,14 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.Controls
         private async void PrintHelper_OnPrintSucceeded()
         {
             ReleasePrintHelper();
-            var dialog = new MessageDialog("Printing done.");
+            var dialog = new ContentDialog { Content = "Printing done.", CloseButtonText = "Close" };
             await dialog.ShowAsync();
         }
 
         private async void PrintHelper_OnPrintFailed()
         {
             ReleasePrintHelper();
-            var dialog = new MessageDialog("Printing failed.");
+            var dialog = new ContentDialog { Content = "Printing failed.", CloseButtonText = "Close" };
             await dialog.ShowAsync();
         }
 

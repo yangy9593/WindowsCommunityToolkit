@@ -9,7 +9,6 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -48,7 +47,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         {
             if (!Uri.TryCreate(e.Link, UriKind.Absolute, out Uri result))
             {
-                await new MessageDialog("Masked relative Images needs to be manually handled.").ShowAsync();
+                await new ContentDialog { Content = "Masked relative Images needs to be manually handled.", CloseButtonText = "Close" }.ShowAsync();
             }
             else
             {
@@ -82,7 +81,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         {
             if (!Uri.TryCreate(e.Link, UriKind.Absolute, out Uri result))
             {
-                await new MessageDialog("Masked relative links needs to be manually handled.").ShowAsync();
+                await new ContentDialog { Content = "Masked relative links needs to be manually handled.", CloseButtonText = "Close" }.ShowAsync();
             }
             else
             {

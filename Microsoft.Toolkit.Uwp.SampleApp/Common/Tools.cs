@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Connectivity;
-using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp
 {
@@ -15,7 +15,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
         {
             if (!NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable)
             {
-                var dialog = new MessageDialog("Internet connection not detected. Please try again later.");
+                var dialog = new ContentDialog { Content = "Internet connection not detected. Please try again later.", CloseButtonText = "Close" };
                 await dialog.ShowAsync();
 
                 return false;

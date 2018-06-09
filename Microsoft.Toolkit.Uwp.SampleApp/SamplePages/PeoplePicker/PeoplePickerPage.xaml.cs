@@ -4,7 +4,6 @@
 
 using System;
 using Microsoft.Toolkit.Uwp.UI.Controls.Graph;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -38,7 +37,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         {
             if (e.Selections != null)
             {
-                await new MessageDialog($"Selected Person Counter {e.Selections.Count}", "Selection Changed").ShowAsync();
+                await new ContentDialog { Content = $"Selected Person Counter {e.Selections.Count}", Title = "Selection Changed", CloseButtonText = "Close" }.ShowAsync();
             }
         }
     }

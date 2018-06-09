@@ -11,7 +11,6 @@ using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -53,7 +52,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
                 ShareBox.Visibility = Visibility.Collapsed;
                 SearchBox.Visibility = Visibility.Collapsed;
                 Shell.Current.DisplayWaitRing = false;
-                var error = new MessageDialog("Unable to log to Twitter");
+                var error = new ContentDialog { Content = "Unable to log to Twitter", CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
@@ -76,7 +75,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             {
                 if ((ex.Errors?.Errors?.Length > 0) && (ex.Errors.Errors[0].Code == 89))
                 {
-                    await new MessageDialog("Invalid or expired token. Logging out. Re-connect for new token.").ShowAsync();
+                    await new ContentDialog { Content = "Invalid or expired token. Logging out. Re-connect for new token.", CloseButtonText = "Close" }.ShowAsync();
                     TwitterService.Instance.Logout();
                     return;
                 }
@@ -110,7 +109,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             }
             catch (Exception ex)
             {
-                await new MessageDialog($"An error occured finding your location. Message: {ex.Message}").ShowAsync();
+                await new ContentDialog { Content = $"An error occured finding your location. Message: {ex.Message}", CloseButtonText = "Close" }.ShowAsync();
                 TrackingManager.TrackException(ex);
             }
         }

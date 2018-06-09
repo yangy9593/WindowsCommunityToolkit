@@ -10,7 +10,6 @@ using Microsoft.Toolkit.Services.OneDrive;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -66,7 +65,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 
         public static Task DisplayMessageAsync(string message)
         {
-            MessageDialog error = new MessageDialog(message);
+            var error = new ContentDialog { Content = message, CloseButtonText = "Close" };
 
             return error.ShowAsync().AsTask();
         }

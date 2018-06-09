@@ -37,13 +37,13 @@ await printHelper.ShowPrintUIAsync("Windows Community Toolkit Sample App");
 private async void PrintHelper_OnPrintSucceeded()
 {
   printHelper.Dispose();
-  var dialog = new MessageDialog("Printing done.");
+  var dialog = new ContentDialog { Content = "Printing done.", CloseButtonText = "Close" };
   await dialog.ShowAsync();
 }
 
 private async void PrintHelper_OnPrintFailed()
 {
   printHelper.Dispose();
-  var dialog = new MessageDialog("Printing failed.");
+  var dialog = new ContentDialog { Content = "Printing failed.");
   await dialog.ShowAsync();
 }

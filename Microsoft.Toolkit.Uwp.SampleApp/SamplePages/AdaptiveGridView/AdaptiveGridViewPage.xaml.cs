@@ -7,8 +7,8 @@ using System.Linq;
 using Microsoft.Toolkit.Uwp.SampleApp.Data;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 {
@@ -43,7 +43,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         {
             if (e.ClickedItem != null)
             {
-                await new MessageDialog($"You clicked {(e.ClickedItem as PhotoDataItem).Title}", "Item Clicked").ShowAsync();
+                await new ContentDialog { Content = $"You clicked {(e.ClickedItem as PhotoDataItem).Title}", Title = "Item Clicked", CloseButtonText = "Close" }.ShowAsync();
             }
         }
     }

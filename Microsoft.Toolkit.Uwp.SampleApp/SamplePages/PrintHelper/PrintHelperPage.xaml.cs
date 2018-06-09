@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Windows.Graphics.Printing;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -135,7 +134,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         {
             if (customPrintTemplate == null)
             {
-                var dialog = new MessageDialog("Could not find the data template resource called 'CustomPrintTemplate' under the listview called 'PrintSampleListView'.", "Incomplete XAML");
+                var dialog = new ContentDialog { Content = "Could not find the data template resource called 'CustomPrintTemplate' under the listview called 'PrintSampleListView'.", Title = "Incomplete XAML", CloseButtonText = "Close" };
                 await dialog.ShowAsync();
                 return;
             }
@@ -205,14 +204,14 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
         private async void PrintHelper_OnPrintSucceeded()
         {
             ReleasePrintHelper();
-            var dialog = new MessageDialog("Printing done.");
+            var dialog = new ContentDialog { Content = "Printing done.", CloseButtonText = "Close" };
             await dialog.ShowAsync();
         }
 
         private async void PrintHelper_OnPrintFailed()
         {
             ReleasePrintHelper();
-            var dialog = new MessageDialog("Printing failed.");
+            var dialog = new ContentDialog { Content = "Printing failed.", CloseButtonText = "Close" };
             await dialog.ShowAsync();
         }
 

@@ -16,7 +16,6 @@ using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Microsoft.Toolkit.Uwp.UI.Controls.Graph
@@ -119,7 +118,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Graph
                     await GraphService.TryLoginAsync();
                     GraphServiceClient graphServiceClient = GraphService.GraphProvider;
                     Permission link = await graphServiceClient.Drives[_driveId].Items[driveItem.Id].CreateLink("view", "organization").Request().PostAsync();
-                    MessageDialog dialog = new MessageDialog(link.Link.WebUrl, ShareLinkCopiedMessage);
+                    ContentDialog dialog = new ContentDialog { Content = link.Link.WebUrl, Title = ShareLinkCopiedMessage, CloseButtonText = "Close" };
                     DataPackage package = new DataPackage();
                     package.SetText(link.Link.WebUrl);
                     Clipboard.SetContent(package);
@@ -127,7 +126,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Graph
                 }
                 catch (Exception exception)
                 {
-                    MessageDialog dialog = new MessageDialog(exception.Message);
+                    ContentDialog dialog = new ContentDialog { Content = exception.Message, CloseButtonText = "Close" };
                     await dialog.ShowAsync();
                 }
             }
@@ -183,7 +182,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Graph
 
         private async void ShowErrorDetails_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog messageDialog = new MessageDialog(ErrorMessage);
+            var messageDialog = new ContentDialog { Content = ErrorMessage, CloseButtonText = "Close" };
             await messageDialog.ShowAsync();
         }
 

@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
@@ -12,7 +10,6 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Toolkit.Services.MicrosoftGraph;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -71,32 +68,32 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             {
                 if (!await MicrosoftGraphService.Instance.LoginAsync(upn))
                 {
-                    var error = new MessageDialog("Unable to sign in to Office 365");
+                    var error = new ContentDialog { Content = "Unable to sign in to Office 365", CloseButtonText = "Close" };
                     await error.ShowAsync();
                     return;
                 }
             }
             catch (AdalServiceException ase)
             {
-                var error = new MessageDialog(ase.Message);
+                var error = new ContentDialog { Content = ase.Message, CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
             catch (AdalException ae)
             {
-                var error = new MessageDialog(ae.Message);
+                var error = new ContentDialog { Content = ae.Message, CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
             catch (MsalServiceException mse)
             {
-                var error = new MessageDialog(mse.Message);
+                var error = new ContentDialog { Content = mse.Message, CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
             catch (MsalException me)
             {
-                var error = new MessageDialog(me.Message);
+                var error = new ContentDialog { Content = me.Message, CloseButtonText = "Close" };
                 await error.ShowAsync();
                 return;
             }
@@ -231,15 +228,15 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 
         private Task DisplayAuthorizationErrorMessageAsync(ServiceException ex, string additionalMessage)
         {
-            MessageDialog error;
+            ContentDialog error;
 
             if (ex.Error.Code.Equals("ErrorAccessDenied"))
             {
-                error = new MessageDialog($"{ex.Error.Code}\nCheck in Azure Active Directory portal the '{additionalMessage}' Delegated Permissions");
+                error = new ContentDialog { Content = $"{ex.Error.Code}\nCheck in Azure Active Directory portal the '{additionalMessage}' Delegated Permissions", CloseButtonText = "Close" };
             }
             else
             {
-                error = new MessageDialog(ex.Error.Message);
+                error = new ContentDialog { Content = ex.Error.Message, CloseButtonText = "Close" };
             }
 
             return error.ShowAsync().AsTask();

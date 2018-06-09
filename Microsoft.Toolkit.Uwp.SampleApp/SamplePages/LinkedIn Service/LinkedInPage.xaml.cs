@@ -4,7 +4,6 @@
 
 using System;
 using Microsoft.Toolkit.Uwp.Services.LinkedIn;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -68,7 +67,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 
             var response = await LinkedInService.Instance.ShareActivityAsync(ShareText.Text);
 
-            var message = new MessageDialog("Share sent to LinkedIn");
+            var message = new ContentDialog { Content = "Share sent to LinkedIn", CloseButtonText = "Close" };
             await message.ShowAsync();
         }
 

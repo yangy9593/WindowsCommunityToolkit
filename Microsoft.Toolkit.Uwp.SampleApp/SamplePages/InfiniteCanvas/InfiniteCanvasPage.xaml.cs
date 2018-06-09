@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Windows.Storage;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -77,7 +76,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
                         }
                         catch
                         {
-                            var dialog = new MessageDialog("Invalid File");
+                            var dialog = new ContentDialog { Content = "Invalid File", CloseButtonText = "Close" };
                             await dialog.ShowAsync();
                         }
                     }

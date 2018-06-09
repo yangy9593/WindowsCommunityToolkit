@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -67,7 +66,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
 
         private async void People_ItemClick(object sender, OrbitViewItemClickedEventArgs e)
         {
-            await new MessageDialog("You clicked: " + (e.Item as OrbitViewDataItem)?.Label).ShowAsync();
+            await new ContentDialog { Content = "You clicked: " + (e.Item as OrbitViewDataItem)?.Label, CloseButtonText = "Close" }.ShowAsync();
         }
 
         private void Devices_ItemClick(object sender, OrbitViewItemClickedEventArgs e)

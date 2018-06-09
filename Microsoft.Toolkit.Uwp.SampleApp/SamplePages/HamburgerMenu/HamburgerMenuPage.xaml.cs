@@ -3,10 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -38,7 +36,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp.SamplePages
             if (e.IsItemOptions)
             {
                 var menuItem = e.InvokedItem as HamburgerMenuItem;
-                var dialog = new MessageDialog($"You clicked on {menuItem.Label} button");
+                var dialog = new ContentDialog { Content = $"You clicked on {menuItem.Label} button", CloseButtonText = "Close" };
 
                 await dialog.ShowAsync();
             }
