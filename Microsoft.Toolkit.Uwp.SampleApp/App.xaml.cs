@@ -78,7 +78,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
 
             SystemInformation.TrackAppUse(e);
 
-            GazeInput.GlobalInteraction = Interaction.Enabled;
+            GazeInput.Interaction = Interaction.Enabled;
         }
 
         /// <summary>
