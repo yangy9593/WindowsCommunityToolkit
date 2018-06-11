@@ -38,9 +38,9 @@ internal:
         return provider != nullptr;
     }
 
-    void Invoke() override sealed
+    void Invoke(UIElement^ element) override sealed
     {
-        auto peer = FrameworkElementAutomationPeer::FromElement(TargetElement);
+        auto peer = FrameworkElementAutomationPeer::FromElement(element);
         auto provider = GetPattern(peer);
         Invoke(provider);
     }
@@ -126,9 +126,9 @@ internal:
     {
     }
 
-    void Invoke() override
+    void Invoke(UIElement^ element) override
     {
-        auto peer = FrameworkElementAutomationPeer::FromElement(TargetElement);
+        auto peer = FrameworkElementAutomationPeer::FromElement(element);
         auto comboBoxItemAutomationPeer = dynamic_cast<ComboBoxItemAutomationPeer^>(peer);
         auto comboBoxItem = safe_cast<ComboBoxItem^>(comboBoxItemAutomationPeer->Owner);
 
@@ -154,9 +154,9 @@ internal:
     {
     }
 
-    void Invoke() override
+    void Invoke(UIElement^ element) override
     {
-        auto headerItem = safe_cast<PivotHeaderItem^>(TargetElement);
+        auto headerItem = safe_cast<PivotHeaderItem^>(element);
         auto headerPanel = safe_cast<PivotHeaderPanel^>(VisualTreeHelper::GetParent(headerItem));
         unsigned index;
         headerPanel->Children->IndexOf(headerItem, &index);
@@ -229,10 +229,10 @@ GazeTargetItem^ GazeTargetItem::GetOrCreate(UIElement^ element)
     return item;
 }
 
-void GazeTargetItem::RaiseProgressEvent(DwellProgressState state)
+void GazeTargetItem::RaiseProgressEvent(UIElement^ element, DwellProgressState state)
 {
     // TODO: We should eliminate non-invokable controls before we arrive here!
-    if (dynamic_cast<Page^>(TargetElement) != nullptr)
+    if (dynamic_cast<Page^>(element) != nullptr)
     {
         return;
     }
@@ -241,10 +241,10 @@ void GazeTargetItem::RaiseProgressEvent(DwellProgressState state)
     {
         auto handled = false;
 
-        auto gazeElement = GazeInput::GetGazeElement(TargetElement);
+        auto gazeElement = GazeInput::GetGazeElement(element);
         if (gazeElement != nullptr)
         {
-            handled = gazeElement->RaiseProgressFeedback(TargetElement, state, ElapsedTime - _prevStateTime, _nextStateTime - _prevStateTime);
+            handled = gazeElement->RaiseProgressFeedback(element, state, ElapsedTime - _prevStateTime, _nextStateTime - _prevStateTime);
         }
 
         if (!handled && state != DwellProgressState::Idle)
@@ -254,7 +254,7 @@ void GazeTargetItem::RaiseProgressEvent(DwellProgressState state)
                 _feedbackPopup = GazePointer::Instance->_gazeFeedbackPopupFactory->Get();
             }
 
-            auto control = safe_cast<FrameworkElement^>(TargetElement);
+            auto control = safe_cast<FrameworkElement^>(element);
 
             auto transform = control->TransformToVisual(_feedbackPopup);
             auto bounds = transform->TransformBounds(*ref new Rect(*ref new Point(0, 0),

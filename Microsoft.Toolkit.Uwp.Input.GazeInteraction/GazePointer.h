@@ -121,13 +121,13 @@ private:
     void    InitializeGazeInputSource();
     void    DeinitializeGazeInputSource();
 
-    void ActivateGazeTargetItem(GazeTargetItem^ target);
-    GazeTargetItem^          GetHitTarget(Point gazePoint);
-    GazeTargetItem^          ResolveHitTarget(Point gazePoint, TimeSpan timestamp);
+    void ActivateGazeTargetItem(UIElement^ element, GazeTargetItem^ target);
+    GazeTargetItem^          GetHitTarget(Point gazePoint, UIElement^& element);
+    GazeTargetItem^          ResolveHitTarget(Point gazePoint, TimeSpan timestamp, UIElement^& element);
 
     void    CheckIfExiting(TimeSpan curTimestamp);
     void    GotoState(UIElement^ control, PointerState state);
-    void    RaiseGazePointerEvent(GazeTargetItem^ target, PointerState state, TimeSpan elapsedTime);
+    void    RaiseGazePointerEvent(UIElement^ element, GazeTargetItem^ target, PointerState state, TimeSpan elapsedTime);
 
     void OnGazeEntered(
         GazeInputSourcePreview^ provider,

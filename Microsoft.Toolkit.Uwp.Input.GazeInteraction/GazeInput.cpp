@@ -140,7 +140,7 @@ GazePointer^ GazeInput::GetGazePointer(Page^ page)
 void GazeInput::Invoke(UIElement^ element)
 {
     auto item = GazeTargetItem::GetOrCreate(element);
-    item->Invoke();
+    item->Invoke(element);
 }
 
 bool GazeInput::IsDeviceAvailable::get()
