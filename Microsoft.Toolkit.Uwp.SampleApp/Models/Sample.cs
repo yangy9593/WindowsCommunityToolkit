@@ -19,8 +19,8 @@ using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 using Microsoft.Toolkit.Uwp.SampleApp.Models;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using Microsoft.Toolkit.Uwp.UI.Controls.Lottie;
 using Microsoft.Toolkit.Uwp.UI.Controls.Graph;
+using Microsoft.Toolkit.Uwp.UI.Controls.Lottie;
 using Microsoft.Toolkit.Uwp.UI.Media;
 using Newtonsoft.Json;
 using Windows.Foundation.Metadata;
@@ -662,10 +662,11 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
                 RepeatMode.Restart.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Controls.Lottie
                 EasingType.Default.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Animations
                 ImageBlendMode.Multiply.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI
-                ViewType.EmailOnly.GetType().GetTypeInfo().Assembly // Search in Microsoft.Toolkit.Uwp.UI.Controls.Graph
+                ViewType.EmailOnly.GetType().GetTypeInfo().Assembly, // Search in Microsoft.Toolkit.Uwp.UI.Controls.Graph
+                Interaction.Enabled.GetType().GetTypeInfo().Assembly // Search in Microsoft.Toolkit.Uwp.Input.GazeInteraction
             };
 
-            foreach (var typeInfo in assembly.ExportedTypes)
+            foreach (var assembly in assemblies)
             {
                 var typeInfo = SearchTypeIn(assembly, typeName);
                 if (typeInfo != null)
@@ -679,17 +680,6 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
 
         private static Type SearchTypeIn(Assembly assembly, string typeName)
         {
-            foreach (var typeInfo in assembly.ExportedTypes)
-            {
-                if (typeInfo.Name == typeName)
-                {
-                    return typeInfo;
-                }
-            }
-
-            // Search in Microsoft.Toolkit.Uwp.Input.GazeInteraction
-            var gazeType = Interaction.Enabled;
-            assembly = gazeType.GetType().GetTypeInfo().Assembly;
             foreach (var typeInfo in assembly.ExportedTypes)
             {
                 if (typeInfo.Name == typeName)
