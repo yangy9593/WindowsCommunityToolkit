@@ -59,7 +59,7 @@ namespace UnitTests.Lottie
 
             protected internal override void RemoveFrameCallback()
             {
-                InternalIsRunning = false;
+                InternalRunning = false;
             }
 
             protected override void OnValueChanged()
@@ -70,7 +70,7 @@ namespace UnitTests.Lottie
 
             protected override void PostFrameCallback()
             {
-                InternalIsRunning = true;
+                InternalRunning = true;
             }
         }
 

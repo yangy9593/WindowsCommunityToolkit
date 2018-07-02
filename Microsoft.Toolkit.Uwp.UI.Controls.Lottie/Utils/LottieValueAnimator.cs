@@ -23,7 +23,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
         private LottieComposition _composition;
         private float _frameRate;
 
-        protected bool InternalIsRunning { get; set; }
+        protected bool InternalRunning { get; set; }
 
         /// <summary>
         /// Gets the current value of the animation from 0 to 1
@@ -90,7 +90,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
             }
         }
 
-        public override bool IsRunning => InternalIsRunning;
+        public override bool IsRunning => InternalRunning;
 
         public override int TimesRepeated => _repeatCount;
 
@@ -319,13 +319,13 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
         protected virtual void PostFrameCallback()
         {
             PrivateStart();
-            InternalIsRunning = true;
+            InternalRunning = true;
         }
 
         protected internal override void RemoveFrameCallback()
         {
             base.RemoveFrameCallback();
-            InternalIsRunning = false;
+            InternalRunning = false;
         }
 
         private void VerifyFrame()

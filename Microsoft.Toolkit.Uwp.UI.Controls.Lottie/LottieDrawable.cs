@@ -416,7 +416,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
         {
             if (_compositionLayer == null)
             {
-                _lazyCompositionTasks.Add(composition =>
+                _lazyCompositionTasks.Add(c =>
                 {
                     PlayAnimation();
                 });
@@ -443,7 +443,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
         {
             if (_compositionLayer == null)
             {
-                _lazyCompositionTasks.Add(composition =>
+                _lazyCompositionTasks.Add(c =>
                 {
                     ResumeAnimation();
                 });
@@ -471,7 +471,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
             {
                 if (_composition == null)
                 {
-                    _lazyCompositionTasks.Add(composition =>
+                    _lazyCompositionTasks.Add(c =>
                     {
                         MinProgress = value;
                     });
@@ -510,7 +510,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
 
                 if (_composition == null)
                 {
-                    _lazyCompositionTasks.Add(composition =>
+                    _lazyCompositionTasks.Add(c =>
                     {
                         MaxProgress = value;
                     });
@@ -560,7 +560,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
 
             if (_composition == null)
             {
-                _lazyCompositionTasks.Add(composition =>
+                _lazyCompositionTasks.Add(c =>
                 {
                     SetMinAndMaxProgress(minProgress, maxProgress);
                 });
@@ -647,7 +647,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
             {
                 if (_composition == null)
                 {
-                    _lazyCompositionTasks.Add(composition =>
+                    _lazyCompositionTasks.Add(c =>
                     {
                         Frame = value;
                     });
@@ -668,7 +668,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
             {
                 if (_composition == null)
                 {
-                    _lazyCompositionTasks.Add(composition =>
+                    _lazyCompositionTasks.Add(c =>
                     {
                         Progress = value;
                     });
@@ -912,7 +912,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
         {
             if (_compositionLayer == null)
             {
-                _lazyCompositionTasks.Add(composition =>
+                _lazyCompositionTasks.Add(c =>
                 {
                     AddValueCallback(keyPath, property, callback);
                 });
