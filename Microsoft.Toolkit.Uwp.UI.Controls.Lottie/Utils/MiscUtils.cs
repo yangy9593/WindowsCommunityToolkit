@@ -65,15 +65,16 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
 
         private static int FloorMod(int x, int y)
         {
-            return x - (FloorDiv(x, y) * y);
+            return x - (y * FloorDiv(x, y));
         }
 
         private static int FloorDiv(int x, int y)
         {
             var r = x / y;
+            var sameSign = (x ^ y) >= 0;
+            var mod = x % y;
 
-            // if the signs are different and modulo not zero, round down
-            if ((x ^ y) < 0 && r * y != x)
+            if (!sameSign && mod != 0)
             {
                 r--;
             }

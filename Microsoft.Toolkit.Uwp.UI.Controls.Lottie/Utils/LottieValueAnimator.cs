@@ -160,6 +160,13 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
             }
         }
 
+        public void ClearComposition()
+        {
+            _composition = null;
+            _minFrame = int.MinValue;
+            _maxFrame = int.MaxValue;
+        }
+
         public override float FrameRate
         {
             get => _frameRate;
@@ -174,10 +181,21 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
         {
             set
             {
+                // Because the initial composition is loaded async, the first min/max frame may be set
+                var keepMinAndMaxFrames = _composition == null;
                 _composition = value;
-                SetMinAndMaxFrames(
-                    (int)Math.Max(_minFrame, _composition.StartFrame),
-                    (int)Math.Min(_maxFrame, _composition.EndFrame));
+
+                if (keepMinAndMaxFrames)
+                {
+                    SetMinAndMaxFrames(
+                        (int)Math.Max(_minFrame, _composition.StartFrame),
+                        (int)Math.Min(_maxFrame, _composition.EndFrame));
+                }
+                else
+                {
+                    SetMinAndMaxFrames((int)_composition.StartFrame, (int)_composition.EndFrame);
+                }
+
                 FrameRate = _composition.FrameRate;
                 Frame = _frame;
                 _lastFrameTimeNs = SystemnanoTime();

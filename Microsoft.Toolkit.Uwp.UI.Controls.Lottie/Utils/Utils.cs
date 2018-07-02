@@ -12,7 +12,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Utils
 {
     internal static class Utils
     {
-        public static readonly int SecondInNanos = 1000000000;
+        public const int SecondInNanos = 1000000000;
         private static readonly float Sqrt2 = (float)Math.Sqrt(2);
 
         private static Path _tempPath = new Path();

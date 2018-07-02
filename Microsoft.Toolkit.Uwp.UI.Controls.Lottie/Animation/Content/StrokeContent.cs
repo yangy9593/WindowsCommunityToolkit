@@ -13,12 +13,14 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
 {
     internal class StrokeContent : BaseStrokeContent
     {
+        private readonly BaseLayer _layer;
         private readonly IBaseKeyframeAnimation<Color?, Color?> _colorAnimation;
         private IBaseKeyframeAnimation<ColorFilter, ColorFilter> _colorFilterAnimation;
 
         internal StrokeContent(LottieDrawable lottieDrawable, BaseLayer layer, ShapeStroke stroke)
             : base(lottieDrawable, layer, ShapeStroke.LineCapTypeToPaintCap(stroke.CapType), ShapeStroke.LineJoinTypeToPaintLineJoin(stroke.JoinType), stroke.Opacity, stroke.Width, stroke.LineDashPattern, stroke.DashOffset)
         {
+            _layer = layer;
             Name = stroke.Name;
             _colorAnimation = stroke.Color.CreateAnimation();
             _colorAnimation.ValueChanged += OnValueChanged;
@@ -28,6 +30,11 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
         public override void Draw(BitmapCanvas canvas, Matrix3X3 parentMatrix, byte parentAlpha)
         {
             Paint.Color = _colorAnimation.Value ?? Colors.White;
+            if (_colorFilterAnimation != null)
+            {
+                Paint.ColorFilter = _colorFilterAnimation.Value;
+            }
+
             base.Draw(canvas, parentMatrix, parentAlpha);
         }
 
@@ -49,6 +56,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
                 else
                 {
                     _colorFilterAnimation = new ValueCallbackKeyframeAnimation<ColorFilter, ColorFilter>((ILottieValueCallback<ColorFilter>)callback);
+                    _colorFilterAnimation.ValueChanged += OnValueChanged;
+                    _layer.AddAnimation(_colorAnimation);
                 }
             }
         }

@@ -24,7 +24,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Model
         private readonly char _character;
         private readonly string _fontFamily;
 
-        internal FontCharacter(List<ShapeGroup> shapes, char character, int size, double width, string style, string fontFamily)
+        internal FontCharacter(List<ShapeGroup> shapes, char character, double size, double width, string style, string fontFamily)
         {
             Shapes = shapes;
             _character = character;
@@ -36,7 +36,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Model
 
         internal List<ShapeGroup> Shapes { get; }
 
-        private int _size;
+        private double _size;
 
         /// <summary>
         /// Gets the width of this font character

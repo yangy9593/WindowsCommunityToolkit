@@ -43,7 +43,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Parser
                         startFrame = reader.NextDouble();
                         break;
                     case "op":
-                        endFrame = reader.NextDouble();
+                        endFrame = reader.NextDouble() - 0.01f;
                         break;
                     case "fr":
                         frameRate = reader.NextDouble();

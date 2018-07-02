@@ -149,6 +149,7 @@
     <Compile Include="Helpers\Test_DeepLinkParser.cs" />
     <Compile Include="Lottie\Fixtures.cs" />
     <Compile Include="Lottie\KeyPathTest.cs" />
+    <Compile Include="Lottie\LottieDrawableTest.cs" />
     <Compile Include="Lottie\LottieValueAnimatorUnitTest.cs" />
     <Compile Include="Lottie\MeanCalculatorTest.cs" />
     <Compile Include="Lottie\PerformanceTrackerTest.cs" />

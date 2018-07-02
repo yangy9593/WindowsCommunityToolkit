@@ -22,6 +22,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
         /// </summary>
         private const int CacheStepsMs = 32;
 
+        private readonly BaseLayer _layer;
         private readonly Dictionary<long, LinearGradient> _linearGradientCache = new Dictionary<long, LinearGradient>();
         private readonly Dictionary<long, RadialGradient> _radialGradientCache = new Dictionary<long, RadialGradient>();
         private readonly Matrix3X3 _shaderMatrix = Matrix3X3.CreateIdentity();
@@ -42,6 +43,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
 
         internal GradientFillContent(LottieDrawable lottieDrawable, BaseLayer layer, GradientFill fill)
         {
+            _layer = layer;
             Name = fill.Name;
             _lottieDrawable = lottieDrawable;
             _type = fill.GradientType;
@@ -223,6 +225,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
                 else
                 {
                     _colorFilterAnimation = new ValueCallbackKeyframeAnimation<ColorFilter, ColorFilter>((ILottieValueCallback<ColorFilter>)callback);
+                    _colorFilterAnimation.ValueChanged += OnValueChanged;
+                    _layer.AddAnimation(_colorFilterAnimation);
                 }
             }
         }

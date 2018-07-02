@@ -17,6 +17,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Model.Layer
     {
         private static readonly int SaveFlags = BitmapCanvas.ClipSaveFlag | BitmapCanvas.ClipToLayerSaveFlag | BitmapCanvas.MatrixSaveFlag;
 
+        private static bool _hasLoggedIntersectMasks = false;
+
         internal static BaseLayer ForModel(Layer layerModel, LottieDrawable drawable, LottieComposition composition)
         {
             switch (layerModel.GetLayerType())
@@ -346,9 +348,14 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Model.Layer
                     paint = _subtractMaskPaint;
                     break;
                 case Mask.MaskMode.MaskModeIntersect:
-                    Debug.WriteLine(
-                        "Animation contains intersect masks. They are not supported but will be " +
-                                 "treated like add masks.", LottieLog.Tag);
+                    if (!_hasLoggedIntersectMasks)
+                    {
+                        Debug.WriteLine(
+                            "Animation contains intersect masks. They are not supported but will be " +
+                                     "treated like add masks.", LottieLog.Tag);
+                        _hasLoggedIntersectMasks = true;
+                    }
+
                     goto case Mask.MaskMode.MaskModeAdd;
                 case Mask.MaskMode.MaskModeAdd:
                 default:

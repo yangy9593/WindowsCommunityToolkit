@@ -21,6 +21,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
         private readonly Path _path = new Path();
         private readonly Path _trimPathPath = new Path();
         private readonly LottieDrawable _lottieDrawable;
+        private readonly BaseLayer _layer;
         private readonly List<PathGroup> _pathGroups = new List<PathGroup>();
         private readonly float[] _dashPatternValues;
         private readonly IBaseKeyframeAnimation<float?, float?> _widthAnimation;
@@ -37,6 +38,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
         internal BaseStrokeContent(LottieDrawable lottieDrawable, BaseLayer layer, CanvasCapStyle cap, CanvasLineJoin join, AnimatableIntegerValue opacity, AnimatableFloatValue width, List<AnimatableFloatValue> dashPattern, AnimatableFloatValue offset)
         {
             _lottieDrawable = lottieDrawable;
+            _layer = layer;
 
             Paint.Style = Paint.PaintStyle.Stroke;
             Paint.StrokeCap = cap;
@@ -377,6 +379,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie.Animation.Content
                 else
                 {
                     _colorFilterAnimation = new ValueCallbackKeyframeAnimation<ColorFilter, ColorFilter>((ILottieValueCallback<ColorFilter>)callback);
+                    _colorFilterAnimation.ValueChanged += OnValueChanged;
+                    _layer.AddAnimation(_colorFilterAnimation);
                 }
             }
         }

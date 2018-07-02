@@ -285,6 +285,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
 
             _compositionLayer = null;
             _imageAssetManager = null;
+            _animator.ClearComposition();
             InvalidateSelf();
         }
 
@@ -477,7 +478,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
                     return;
                 }
 
-                MinFrame = MiscUtils.Lerp(value, _composition.StartFrame, _composition.EndFrame);
+                MinFrame = MiscUtils.Lerp(_composition.StartFrame, _composition.EndFrame, value);
             }
         }
 
@@ -516,7 +517,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Lottie
                     return;
                 }
 
-                MaxFrame = MiscUtils.Lerp(value, _composition.StartFrame, _composition.EndFrame);
+                MaxFrame = MiscUtils.Lerp(_composition.StartFrame, _composition.EndFrame, value);
             }
         }
 

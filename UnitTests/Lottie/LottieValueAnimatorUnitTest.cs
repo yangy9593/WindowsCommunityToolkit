@@ -20,21 +20,32 @@ namespace UnitTests.Lottie
         private Mock<TestLottieValueAnimator> _mockAnimator;
         private LottieComposition _composition;
         private TestLottieValueAnimator _animator;
-        private volatile bool isDone;
+        private volatile bool _isDone;
 
         [TestInitialize]
         public void Init()
         {
-            _composition = new LottieComposition();
-            _composition.Init(default(Rect), 0, 1000, 1000, new List<Layer>(), new Dictionary<long, Layer>(0), new Dictionary<string, List<Layer>>(0), new Dictionary<string, LottieImageAsset>(0), new Dictionary<int, FontCharacter>(0), new Dictionary<string, Font>(0));
-            _mockAnimator = new Mock<TestLottieValueAnimator>
-            {
-                CallBase = true,
-            };
+            _composition = CreateComposition(0, 1000);
+            _mockAnimator = CreateAnimator();
             _animator = _mockAnimator.Object;
             _animator.Composition = _composition;
 
-            isDone = false;
+            _isDone = false;
+        }
+
+        private static Mock<TestLottieValueAnimator> CreateAnimator()
+        {
+            return new Mock<TestLottieValueAnimator>
+            {
+                CallBase = true,
+            };
+        }
+
+        private LottieComposition CreateComposition(int startFrame, int endFrame)
+        {
+            var composition = new LottieComposition();
+            composition.Init(default(Rect), startFrame, endFrame, 1000, new List<Layer>(), new Dictionary<long, Layer>(0), new Dictionary<string, List<Layer>>(0), new Dictionary<string, LottieImageAsset>(0), new Dictionary<int, FontCharacter>(0), new Dictionary<string, Font>(0));
+            return composition;
         }
 
         internal class TestLottieValueAnimator : LottieValueAnimator
@@ -74,7 +85,7 @@ namespace UnitTests.Lottie
         [TestMethod]
         public void TestInitialState()
         {
-            Assert.AreEqual(0f, _animator.Frame);
+            AssertClose(0f, _animator.Frame);
         }
 
         [TestCategory("Lottie")]
@@ -83,7 +94,7 @@ namespace UnitTests.Lottie
         {
             _animator.Frame = 500;
             _animator.ResumeAnimation();
-            Assert.AreEqual(500f, _animator.Frame);
+            AssertClose(500f, _animator.Frame);
         }
 
         [TestCategory("Lottie")]
@@ -92,8 +103,8 @@ namespace UnitTests.Lottie
         {
             _animator.Frame = 500;
             _animator.ResumeAnimation();
-            Assert.AreEqual(0.5f, _animator.AnimatedFraction);
-            Assert.AreEqual(0.5f, _animator.AnimatedValueAbsolute);
+            AssertClose(0.5f, _animator.AnimatedFraction);
+            AssertClose(0.5f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -102,8 +113,8 @@ namespace UnitTests.Lottie
         {
             _animator.Frame = 500;
             _animator.PlayAnimation();
-            Assert.AreEqual(0f, _animator.Frame);
-            Assert.AreEqual(0f, _animator.AnimatedFraction);
+            AssertClose(0f, _animator.Frame);
+            AssertClose(0f, _animator.AnimatedFraction);
         }
 
         [TestCategory("Lottie")]
@@ -112,9 +123,9 @@ namespace UnitTests.Lottie
         {
             _animator.Frame = 250;
             _animator.ReverseAnimationSpeed();
-            Assert.AreEqual(250, _animator.Frame);
-            Assert.AreEqual(0.75f, _animator.AnimatedFraction);
-            Assert.AreEqual(0.25f, _animator.AnimatedValueAbsolute);
+            AssertClose(250, _animator.Frame);
+            AssertClose(0.75f, _animator.AnimatedFraction);
+            AssertClose(0.25f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -124,9 +135,9 @@ namespace UnitTests.Lottie
             _animator.MinFrame = 100;
             _animator.Frame = 1000;
             _animator.ReverseAnimationSpeed();
-            Assert.AreEqual(1000f, _animator.Frame);
-            Assert.AreEqual(0f, _animator.AnimatedFraction);
-            Assert.AreEqual(1f, _animator.AnimatedValueAbsolute);
+            AssertClose(1000f, _animator.Frame);
+            AssertClose(0f, _animator.AnimatedFraction);
+            AssertClose(1f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -135,9 +146,9 @@ namespace UnitTests.Lottie
         {
             _animator.MaxFrame = 900;
             _animator.ReverseAnimationSpeed();
-            Assert.AreEqual(0f, _animator.Frame);
-            Assert.AreEqual(1f, _animator.AnimatedFraction);
-            Assert.AreEqual(0f, _animator.AnimatedValueAbsolute);
+            AssertClose(0f, _animator.Frame);
+            AssertClose(1f, _animator.AnimatedFraction);
+            AssertClose(0f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -147,9 +158,9 @@ namespace UnitTests.Lottie
             _animator.MaxFrame = 900;
             _animator.ReverseAnimationSpeed();
             _animator.ResumeAnimation();
-            Assert.AreEqual(900f, _animator.Frame);
-            Assert.AreEqual(0f, _animator.AnimatedFraction);
-            Assert.AreEqual(0.9f, _animator.AnimatedValueAbsolute);
+            AssertClose(900f, _animator.Frame);
+            AssertClose(0f, _animator.AnimatedFraction);
+            AssertClose(0.9f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -159,9 +170,9 @@ namespace UnitTests.Lottie
             _animator.MaxFrame = 900;
             _animator.ReverseAnimationSpeed();
             _animator.PlayAnimation();
-            Assert.AreEqual(900f, _animator.Frame);
-            Assert.AreEqual(0f, _animator.AnimatedFraction);
-            Assert.AreEqual(0.9f, _animator.AnimatedValueAbsolute);
+            AssertClose(900f, _animator.Frame);
+            AssertClose(0f, _animator.AnimatedFraction);
+            AssertClose(0.9f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -171,20 +182,20 @@ namespace UnitTests.Lottie
             _animator.MinFrame = 200;
             _animator.MaxFrame = 800;
             _animator.Frame = 400;
-            Assert.AreEqual(0.33f, _animator.AnimatedFraction, 2);
-            Assert.AreEqual(0.4f, _animator.AnimatedValueAbsolute);
+            AssertClose(0.33333f, _animator.AnimatedFraction);
+            AssertClose(0.4f, _animator.AnimatedValueAbsolute);
             _animator.ReverseAnimationSpeed();
-            Assert.AreEqual(400f, _animator.Frame);
-            Assert.AreEqual(0.666f, _animator.AnimatedFraction, 2);
-            Assert.AreEqual(0.4f, _animator.AnimatedValueAbsolute);
+            AssertClose(400f, _animator.Frame);
+            AssertClose(0.66666f, _animator.AnimatedFraction);
+            AssertClose(0.4f, _animator.AnimatedValueAbsolute);
             _animator.ResumeAnimation();
-            Assert.AreEqual(400f, _animator.Frame);
-            Assert.AreEqual(0.666f, _animator.AnimatedFraction, 2);
-            Assert.AreEqual(0.4f, _animator.AnimatedValueAbsolute);
+            AssertClose(400f, _animator.Frame);
+            AssertClose(0.66666f, _animator.AnimatedFraction);
+            AssertClose(0.4f, _animator.AnimatedValueAbsolute);
             _animator.PlayAnimation();
-            Assert.AreEqual(800f, _animator.Frame);
-            Assert.AreEqual(0f, _animator.AnimatedFraction, 2);
-            Assert.AreEqual(0.8f, _animator.AnimatedValueAbsolute);
+            AssertClose(800f, _animator.Frame);
+            AssertClose(0f, _animator.AnimatedFraction);
+            AssertClose(0.8f, _animator.AnimatedValueAbsolute);
         }
 
         [TestCategory("Lottie")]
@@ -212,7 +223,7 @@ namespace UnitTests.Lottie
                 _mockAnimator.Verify(l => l.OnAnimationCancel(), Times.Never);
                 _mockAnimator.Verify(l => l.OnAnimationRepeat(), Times.Never);
 
-                isDone = true;
+                _isDone = true;
             }).Verifiable();
 
             TestAnimator(null);
@@ -245,7 +256,7 @@ namespace UnitTests.Lottie
                 _mockAnimator.Verify(l => l.OnAnimationCancel(), Times.Never);
                 _mockAnimator.Verify(l => l.OnAnimationRepeat(), Times.Never);
 
-                isDone = true;
+                _isDone = true;
             }).Verifiable();
 
             TestAnimator(null);
@@ -314,7 +325,7 @@ namespace UnitTests.Lottie
         public void SetMinFrameSmallerThanComposition()
         {
             _animator.MinFrame = -9000;
-            Assert.AreEqual(_animator.MinFrame, _composition.StartFrame);
+            AssertClose(_animator.MinFrame, _composition.StartFrame);
         }
 
         [TestCategory("Lottie")]
@@ -322,7 +333,143 @@ namespace UnitTests.Lottie
         public void SetMaxFrameLargerThanComposition()
         {
             _animator.MaxFrame = 9000;
-            Assert.AreEqual(_animator.MaxFrame, _composition.EndFrame);
+            AssertClose(_animator.MaxFrame, _composition.EndFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMinFrameBeforeComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.MinFrame = 100;
+            animator.Composition = _composition;
+            AssertClose(100.0f, animator.MinFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMaxFrameBeforeComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.MaxFrame = 100;
+            animator.Composition = _composition;
+            AssertClose(100.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMinAndMaxFrameBeforeComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.SetMinAndMaxFrames(100, 900);
+            animator.Composition = _composition;
+            AssertClose(100.0f, animator.MinFrame);
+            AssertClose(900.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMinFrameAfterComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.Composition = _composition;
+            animator.MinFrame = 100;
+            AssertClose(100.0f, animator.MinFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMaxFrameAfterComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.Composition = _composition;
+            animator.MaxFrame = 100;
+            AssertClose(100.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void SetMinAndMaxFrameAfterComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.Composition = _composition;
+            animator.SetMinAndMaxFrames(100, 900);
+            AssertClose(100.0f, animator.MinFrame);
+            AssertClose(900.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void MaxFrameOfNewShorterComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.Composition = _composition;
+            LottieComposition composition2 = CreateComposition(0, 500);
+            animator.Composition = composition2;
+            AssertClose(500.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void MaxFrameOfNewLongerComposition()
+        {
+            LottieValueAnimator animator = CreateAnimator().Object;
+            animator.Composition = _composition;
+            LottieComposition composition2 = CreateComposition(0, 1500);
+            animator.Composition = composition2;
+            AssertClose(1500.0f, animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void ClearComposition()
+        {
+            _animator.ClearComposition();
+            AssertClose(0.0f, _animator.MaxFrame);
+            AssertClose(0.0f, _animator.MinFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void ResetComposition()
+        {
+            _animator.ClearComposition();
+            _animator.Composition = _composition;
+            AssertClose(0.0f, _animator.MinFrame);
+            AssertClose(1000.0f, _animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void ResetAndSetMinBeforeComposition()
+        {
+            _animator.ClearComposition();
+            _animator.MinFrame = 100;
+            _animator.Composition = _composition;
+            AssertClose(100.0f, _animator.MinFrame);
+            AssertClose(1000.0f, _animator.MaxFrame);
+        }
+
+        [TestCategory("Lottie")]
+        [TestMethod]
+        public void ResetAndSetMinAterComposition()
+        {
+            _animator.ClearComposition();
+            _animator.Composition = _composition;
+            _animator.MinFrame = 100;
+            AssertClose(100.0f, _animator.MinFrame);
+            AssertClose(1000.0f, _animator.MaxFrame);
+        }
+
+        /// <summary>
+        /// Animations don't render on the out frame so if an animation is 1000 frames, the actual end will be 999.99. This causes
+        /// actual fractions to be something like .74999 when you might expect 75.
+        /// </summary>
+        /// <param name="expected">The first value to compare.</param>
+        /// <param name="actual">The second value to compare.</param>
+        private static void AssertClose(float expected, float actual)
+        {
+            Assert.IsTrue(Math.Abs(expected - actual) <= expected * 0.01f);
         }
 
         private void TestAnimator(Action verifyListener)
@@ -330,11 +477,11 @@ namespace UnitTests.Lottie
             _animator.AnimationEnd += (s, e) =>
             {
                 verifyListener?.Invoke();
-                isDone = true;
+                _isDone = true;
             };
 
             _animator.PlayAnimation();
-            while (!isDone)
+            while (!_isDone)
             {
                 _animator.DoFrame();
             }
