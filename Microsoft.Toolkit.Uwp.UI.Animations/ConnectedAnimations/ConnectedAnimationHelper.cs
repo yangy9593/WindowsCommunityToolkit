@@ -96,82 +96,85 @@ namespace Microsoft.Toolkit.Uwp.UI.Animations
                 var page = s as Page;
                 page.Loaded -= loadedHandler;
 
-                object parameter;
-                if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.Back)
+                var nop = page.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    var sourcePage = (sender as Frame).ForwardStack.LastOrDefault();
-                    parameter = sourcePage?.Parameter;
-                }
-                else
-                {
-                    parameter = e.Parameter;
-                }
-
-                var cas = ConnectedAnimationService.GetForCurrentView();
-
-                var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page);
-                var coordinatedAnimationElements = Connected.GetPageCoordinatedAnimationElements(page);
-
-                foreach (var props in connectedAnimationsProps.Values)
-                {
-                    var connectedAnimation = cas.GetAnimation(props.Key);
-                    var animationHandled = false;
-                    if (connectedAnimation != null)
+                    object parameter;
+                    if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.Back)
                     {
-                        if (props.IsListAnimation && parameter != null && ApiInformationHelper.IsCreatorsUpdateOrAbove)
+                        var sourcePage = (sender as Frame).ForwardStack.LastOrDefault();
+                        parameter = sourcePage?.Parameter;
+                    }
+                    else
+                    {
+                        parameter = e.Parameter;
+                    }
+
+                    var cas = ConnectedAnimationService.GetForCurrentView();
+
+                    var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page);
+                    var coordinatedAnimationElements = Connected.GetPageCoordinatedAnimationElements(page);
+
+                    foreach (var props in connectedAnimationsProps.Values)
+                    {
+                        var connectedAnimation = cas.GetAnimation(props.Key);
+                        var animationHandled = false;
+                        if (connectedAnimation != null)
                         {
-                            foreach (var listAnimProperty in props.ListAnimProperties)
+                            if (props.IsListAnimation && parameter != null && ApiInformationHelper.IsCreatorsUpdateOrAbove)
                             {
-                                if (listAnimProperty.ListViewBase.ItemsSource is IEnumerable<object> items && items.Contains(parameter))
+                                foreach (var listAnimProperty in props.ListAnimProperties)
                                 {
-                                    listAnimProperty.ListViewBase.ScrollIntoView(parameter);
-
-                                    // give time to the UI thread to scroll the list
-                                    var t = listAnimProperty.ListViewBase.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                    if (listAnimProperty.ListViewBase.ItemsSource is IEnumerable<object> items && items.Contains(parameter))
                                     {
-                                        try
-                                        {
-                                            var success = await listAnimProperty.ListViewBase.TryStartConnectedAnimationAsync(connectedAnimation, parameter, listAnimProperty.ElementName);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            connectedAnimation.Cancel();
-                                        }
-                                    });
+                                        listAnimProperty.ListViewBase.ScrollIntoView(parameter);
 
-                                    animationHandled = true;
+                                        // give time to the UI thread to scroll the list
+                                        var t = listAnimProperty.ListViewBase.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                        {
+                                            try
+                                            {
+                                                var success = await listAnimProperty.ListViewBase.TryStartConnectedAnimationAsync(connectedAnimation, parameter, listAnimProperty.ElementName);
+                                            }
+                                            catch (Exception)
+                                            {
+                                                connectedAnimation.Cancel();
+                                            }
+                                        });
+
+                                        animationHandled = true;
+                                    }
                                 }
                             }
+                            else if (!props.IsListAnimation)
+                            {
+                                if (ApiInformationHelper.IsCreatorsUpdateOrAbove && coordinatedAnimationElements.TryGetValue(props.Element, out var coordinatedElements))
+                                {
+                                    connectedAnimation.TryStart(props.Element, coordinatedElements);
+                                }
+                                else
+                                {
+                                    connectedAnimation.TryStart(props.Element);
+                                }
+
+                                animationHandled = true;
+                            }
                         }
-                        else if (!props.IsListAnimation)
+
+                        if (_previousPageConnectedAnimationProps.ContainsKey(props.Key) && animationHandled)
                         {
-                            if (ApiInformationHelper.IsCreatorsUpdateOrAbove && coordinatedAnimationElements.TryGetValue(props.Element, out var coordinatedElements))
-                            {
-                                connectedAnimation.TryStart(props.Element, coordinatedElements);
-                            }
-                            else
-                            {
-                                connectedAnimation.TryStart(props.Element);
-                            }
-
-                            animationHandled = true;
+                            _previousPageConnectedAnimationProps.Remove(props.Key);
                         }
                     }
 
-                    if (_previousPageConnectedAnimationProps.ContainsKey(props.Key) && animationHandled)
+                    // if there are animations that were prepared on previous page but no elements on this page have the same key - cancel
+                    foreach (var previousProps in _previousPageConnectedAnimationProps)
                     {
-                        _previousPageConnectedAnimationProps.Remove(props.Key);
+                        var connectedAnimation = cas.GetAnimation(previousProps.Key);
+                        connectedAnimation?.Cancel();
                     }
-                }
 
-                // if there are animations that were prepared on previous page but no elements on this page have the same key - cancel
-                foreach (var previousProps in _previousPageConnectedAnimationProps)
-                {
-                    var connectedAnimation = cas.GetAnimation(previousProps.Key);
-                    connectedAnimation?.Cancel();
-                }
-
-                _previousPageConnectedAnimationProps.Clear();
+                    _previousPageConnectedAnimationProps.Clear();
+                });
             }
 
             navigatedPage.Loaded += loadedHandler;
