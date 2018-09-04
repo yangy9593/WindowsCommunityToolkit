@@ -20,7 +20,7 @@ namespace Microsoft.Toolkit.Win32.Samples.WinForms.App
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
-            Application.Run(new Form2());
+            Application.Run(new Form1());
         }
     }
 }
