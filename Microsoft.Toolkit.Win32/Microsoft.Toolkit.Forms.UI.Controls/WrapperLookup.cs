@@ -34,7 +34,7 @@ namespace Microsoft.Toolkit.Forms.UI.Controls
                 return;
             }
 
-            _controlCollection.Add(control, wrapper);
+            _controlCollection[control] = wrapper;
         }
 
         public static void ClearWrapper(this FrameworkElement control)
