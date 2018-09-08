@@ -86,7 +86,7 @@ namespace Microsoft.Toolkit.Win32.UI.XamlHost
         {
             if (_metadataProviders == null)
             {
-                _metadataProviders = MetadataProviderDiscovery.DiscoverMetadataProviders(new List<Type> { typeof(XamlApplication) });
+                _metadataProviders = MetadataProviderDiscovery.DiscoverMetadataProviders(new List<Type> { typeof(XamlApplication), typeof(Windows.UI.Xaml.Markup.IXamlMetadataProvider) });
             }
         }
 
