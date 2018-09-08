@@ -28,7 +28,7 @@ namespace UnitTests.XamlHost.Forms
         {
             void OnFormLoad(object sender, EventArgs e)
             {
-                Application.DoEvents();
+                //Application.DoEvents();
                 action();
             }
 

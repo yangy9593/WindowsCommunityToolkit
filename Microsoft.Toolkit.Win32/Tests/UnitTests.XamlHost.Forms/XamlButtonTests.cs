@@ -62,7 +62,7 @@ namespace UnitTests.XamlHost.Forms
             PerformActionAndWaitForFormClose(() =>
             {
                 Form.BringToFront();
-                Form.Close();
+                //Form.Close();
             });
         }
 
