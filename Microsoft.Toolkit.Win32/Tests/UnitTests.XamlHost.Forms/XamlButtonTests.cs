@@ -14,10 +14,9 @@ namespace UnitTests.XamlHost.Forms
         // Arrange
         protected override void CreateXamlHost()
         {
-
-                // What the designer emits
-                Host = new WindowsXamlHost();
-                Form.SuspendLayout();
+            // What the designer emits
+            Host = new WindowsXamlHost();
+            Form.SuspendLayout();
 
             // XAML Host
             Host.AutoSize = true;
@@ -29,12 +28,8 @@ namespace UnitTests.XamlHost.Forms
             Host.TabIndex = 0;
             Host.Text = "WindowsXamlHost";
 
-
-
-
-                Form.Controls.Add(Host);
-                Form.ResumeLayout(false);
-
+            Form.Controls.Add(Host);
+            Form.ResumeLayout(false);
         }
 
         protected override void Arrange()
@@ -62,7 +57,7 @@ namespace UnitTests.XamlHost.Forms
             PerformActionAndWaitForFormClose(() =>
             {
                 Form.BringToFront();
-                //Form.Close();
+                Form.Close();
             });
         }
 
