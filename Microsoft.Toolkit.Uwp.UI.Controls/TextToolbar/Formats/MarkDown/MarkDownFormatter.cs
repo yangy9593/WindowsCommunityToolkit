@@ -456,7 +456,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown
                 {
                     Name = TextToolbar.QuoteElement,
                     ToolTip = Model.Labels.QuoteLabel,
-                    Icon = new SymbolIcon { Symbol = Symbol.Message },
+                    Icon = new SymbolIcon { Symbol = Symbol.Message, HighContrastAdjustment = ElementHighContrastAdjustment.None },
                     Activation = FormatQuote
                 };
 
@@ -471,7 +471,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown
                     new ToolbarButton
                     {
                         Name = TextToolbar.HeadersElement,
-                        Icon = new SymbolIcon { Symbol = Symbol.FontSize },
+                        Icon = new SymbolIcon { Symbol = Symbol.FontSize, HighContrastAdjustment = ElementHighContrastAdjustment.None  },
                         ToolTip = Model.Labels.HeaderLabel,
                         Activation = StyleHeader
                     },

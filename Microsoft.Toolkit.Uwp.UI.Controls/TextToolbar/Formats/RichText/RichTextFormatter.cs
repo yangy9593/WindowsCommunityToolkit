@@ -123,7 +123,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.RichText
                 Underline = new ToolbarButton
                 {
                     ToolTip = Model.Labels.UnderlineLabel,
-                    Icon = new SymbolIcon { Symbol = Symbol.Underline },
+                    Icon = new SymbolIcon { Symbol = Symbol.Underline, HighContrastAdjustment = Windows.UI.Xaml.ElementHighContrastAdjustment.None },
                     ShortcutKey = VirtualKey.U,
                     Activation = ((RichTextButtonActions)ButtonActions).FormatUnderline
                 };

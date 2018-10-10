@@ -15,6 +15,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols
         public NumberedList()
         {
             this.DefaultStyleKey = typeof(NumberedList);
+            this.HighContrastAdjustment = Windows.UI.Xaml.ElementHighContrastAdjustment.None;
         }
     }
 }

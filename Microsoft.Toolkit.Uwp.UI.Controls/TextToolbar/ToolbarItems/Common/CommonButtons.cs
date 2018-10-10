@@ -37,7 +37,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons.Common
                 {
                     Name = TextToolbar.BoldElement,
                     ToolTip = Model.Labels.BoldLabel,
-                    Icon = new SymbolIcon { Symbol = Symbol.Bold },
+                    Icon = new SymbolIcon { Symbol = Symbol.Bold, HighContrastAdjustment = ElementHighContrastAdjustment.None },
                     ShortcutKey = VirtualKey.B,
                     Activation = MakeBold
                 };
@@ -55,7 +55,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons.Common
                 {
                     Name = TextToolbar.ItalicsElement,
                     ToolTip = Model.Labels.ItalicsLabel,
-                    Icon = new SymbolIcon { Symbol = Symbol.Italic },
+                    Icon = new SymbolIcon { Symbol = Symbol.Italic, HighContrastAdjustment = ElementHighContrastAdjustment.None },
                     ShortcutKey = VirtualKey.I,
                     Activation = MakeItalics
                 };
@@ -73,7 +73,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons.Common
                 {
                     Name = TextToolbar.StrikethoughElement,
                     ToolTip = Model.Labels.StrikethroughLabel,
-                    Icon = new FontIcon { Glyph = "\u0335a\u0335b\u0335c\u0335", FontFamily = new FontFamily("Segoe UI"), Margin = new Thickness(0, -5, 0, 0) },
+                    Icon = new FontIcon { Glyph = "\u0335a\u0335b\u0335c\u0335", FontFamily = new FontFamily("Segoe UI"), Margin = new Thickness(0, -5, 0, 0), HighContrastAdjustment = ElementHighContrastAdjustment.None },
                     Activation = MakeStrike,
                     ShortcutKey = VirtualKey.Subtract,
                     ShortcutFancyName = "-"
@@ -92,7 +92,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons.Common
                 {
                     Name = TextToolbar.LinkElement,
                     ToolTip = Model.Labels.LinkLabel,
-                    Icon = new SymbolIcon { Symbol = Symbol.Link },
+                    Icon = new SymbolIcon { Symbol = Symbol.Link, HighContrastAdjustment = ElementHighContrastAdjustment.None },
                     ShortcutKey = VirtualKey.K,
                     Activation = OpenLinkCreator,
                     ShiftActivation = MakeLink
