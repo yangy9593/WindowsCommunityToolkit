@@ -6,7 +6,40 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <SolidColorBrush Color="{StaticResource SystemChromeLowColor}" x:Key="SystemControlBackgroundChromeLowBrush" />
+    <ResourceDictionary.ThemeDictionaries>
+        <!-- Default is a fallback if a more precise theme isn't called
+            out below -->
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="SystemControlBackgroundChromeLowBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="SystemControlPointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundListLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlPressedChromeBrush" Color="{ThemeResource SystemControlBackgroundListMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedPointerOverChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckPressedChromeBrushChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePressedChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminateDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlBorderBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+        </ResourceDictionary>
+
+        <!-- HighContrast is used in all high contrast themes -->
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="SystemControlBackgroundChromeLowBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="SystemControlPointerOverChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlPressedChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlDisabledChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedPointerOverChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckPressedChromeBrushChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedDisabledChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePointerOverChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePressedChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminateDisabledChromeBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <SolidColorBrush x:Key="SystemControlBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
 
     <Style x:Key="HeaderToggleButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />
@@ -25,7 +58,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
-                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" BorderThickness="{ThemeResource ToggleButtonBorderThemeThickness}" BorderBrush="{ThemeResource SystemControlBorderBrush}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
@@ -41,7 +74,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundListLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlPointerOverChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
@@ -55,7 +88,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundListMediumBrush}" />
+                                                                    Value="{ThemeResource SystemControlPressedChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" To="0.0"
@@ -69,7 +102,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlDisabledChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" To="0.0"
@@ -82,7 +115,9 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlCheckedChromeBrush}" /> 
+                                             <!--<DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SystemControlHighlightListAccentLowBrush}" />--> 
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
@@ -96,7 +131,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+                                                                    Value="{ThemeResource SystemControlCheckedPointerOverChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
@@ -110,7 +145,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlHighlightListAccentHighBrush}" />
+                                                                    Value="{ThemeResource SystemControlCheckPressedChromeBrushChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" To="{Binding ElementName=ArrowRotation, Path=Value}"
@@ -124,7 +159,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlCheckedDisabledChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -153,7 +188,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlIndeterminatePointerOverChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -175,7 +210,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlIndeterminatePressedChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -197,7 +232,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
                                                                        Storyboard.TargetName="HoverPanel">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+                                                                    Value="{ThemeResource SystemControlIndeterminateDisabledChromeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
@@ -254,8 +289,6 @@
                         <ContentPresenter Grid.Column="1"
                                           x:Name="ContentPresenter" 
                                           AutomationProperties.AccessibilityView="Raw"
-                                          BorderBrush="{TemplateBinding BorderBrush}"
-                                          BorderThickness="{TemplateBinding BorderThickness}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           ContentTransitions="{TemplateBinding ContentTransitions}"
                                           Content="{TemplateBinding Content}"
@@ -283,7 +316,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:Expander">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
+                    <Border BorderBrush="{ThemeResource SystemControlBorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="DisplayModeAndDirectionStates">
                                 <VisualState x:Name="VisibleLeft">
@@ -459,6 +492,14 @@
                                                                        Storyboard.TargetProperty="(UIElement.Visibility)">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0.15" Value="Collapsed"/>
                                         </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootGrid" 
+                                                                       Storyboard.TargetProperty="(FrameworkElement.Background)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.01" Value="Transparent"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.15" Value="{Binding ElementName=PART_MainContent, Path=Background}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="PART_RootGrid"
+                                                         Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                                         Duration="0:0:0.15" To="{Binding ElementName=PART_LayoutTransformer, Path=ActualHeight}" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="CollapsedDown">
@@ -512,6 +553,16 @@
                                                                        Storyboard.TargetProperty="(UIElement.Visibility)">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0.15" Value="Collapsed"/>
                                         </ObjectAnimationUsingKeyFrames>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootGrid" 
+                                                                       Storyboard.TargetProperty="(FrameworkElement.Background)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.00" Value="Transparent"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.15" Value="{Binding ElementName=PART_MainContent, Path=Background}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="PART_RootGrid"
+                                                         Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                                         Duration="0:0:0.15" To="{Binding ElementName=PART_LayoutTransformer, Path=ActualHeight}" />
+
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="CollapsedUp">
