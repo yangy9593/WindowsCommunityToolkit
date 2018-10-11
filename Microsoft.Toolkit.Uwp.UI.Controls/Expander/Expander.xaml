@@ -24,6 +24,36 @@
             <SolidColorBrush x:Key="SystemControlBorderBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
         </ResourceDictionary>
 
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="SystemControlBackgroundChromeLowBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="SystemControlPointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundListLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlPressedChromeBrush" Color="{ThemeResource SystemControlBackgroundListMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedPointerOverChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckPressedChromeBrushChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePressedChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminateDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlBorderBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="SystemControlBackgroundChromeLowBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="SystemControlPointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundListLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlPressedChromeBrush" Color="{ThemeResource SystemControlBackgroundListMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedPointerOverChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckPressedChromeBrushChromeBrush" Color="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlCheckedDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePointerOverChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminatePressedChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlIndeterminateDisabledChromeBrush" Color="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+            <SolidColorBrush x:Key="SystemControlBorderBrush" Color="{ThemeResource SystemControlForegroundTransparentBrush}" />
+        </ResourceDictionary>
+        
         <!-- HighContrast is used in all high contrast themes -->
         <ResourceDictionary x:Key="HighContrast">
             <SolidColorBrush x:Key="SystemControlBackgroundChromeLowBrush" Color="{ThemeResource SystemColorWindowColor}" />
