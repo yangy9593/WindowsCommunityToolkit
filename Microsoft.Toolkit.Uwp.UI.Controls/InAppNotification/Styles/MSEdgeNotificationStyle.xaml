@@ -1,11 +1,31 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:local="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)">
+
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Name="Default">
+            <contract5NotPresent:SolidColorBrush x:Key="SystemControlNotificationBackgroundBrush" Color="{ThemeResource SystemChromeMediumLowColor}" />
+            <contract5Present:AcrylicBrush x:Key="SystemControlNotificationBackgroundBrush" 
+                                           TintColor="{ThemeResource SystemChromeAltHighColor}" 
+                                           TintOpacity="0.6" 
+                                           FallbackColor="{ThemeResource SystemChromeMediumLowColor}" />
+            <SolidColorBrush x:Key="SystemControlNotificationBorderBrush" Color="{ThemeResource SystemChromeBlackLowColor}" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Name="HighContrast">
+            <SolidColorBrush x:Key="SystemControlNotificationBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="SystemControlNotificationBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
 
     <Style x:Key="DismissTextBlockButtonStyle" TargetType="ButtonBase">
         <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackground}" />
         <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource SystemColorButtonTextColor}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Width" Value="40" />
         <Setter Property="Height" Value="40" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
@@ -128,8 +148,8 @@
                   Padding="{TemplateBinding Padding}"
                   MaxWidth="{TemplateBinding MaxWidth}"
                   Visibility="{TemplateBinding Visibility}"
-                  Background="{TemplateBinding Background}" 
-                  BorderBrush="{TemplateBinding BorderBrush}" 
+                  Background="{ThemeResource SystemControlNotificationBackgroundBrush}" 
+                  BorderBrush="{ThemeResource SystemControlNotificationBorderBrush}" 
                   BorderThickness="{TemplateBinding BorderThickness}">
                 <Grid.RenderTransform>
                     <CompositeTransform />

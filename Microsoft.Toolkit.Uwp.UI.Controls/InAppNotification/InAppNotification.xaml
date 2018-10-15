@@ -36,13 +36,6 @@
     </contract5NotPresent:Style>
 
     <contract5Present:Style TargetType="local:InAppNotification" BasedOn="{StaticResource BaseInAppNotificationsStyle}">
-        <Setter Property="Background">
-            <Setter.Value>
-                <AcrylicBrush BackgroundSource="Backdrop" 
-                              TintColor="{StaticResource SystemChromeMediumLowColor}" 
-                              TintOpacity="0.8"
-                              FallbackColor="{StaticResource SystemChromeMediumLowColor}" />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Background" Value="{ThemeResource SystemControlChromeMediumLowAcrylicElementMediumBrush}" />
     </contract5Present:Style>
 </ResourceDictionary>
